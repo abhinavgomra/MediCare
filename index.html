@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediCare Connect: Interactive Pitch Deck</title>
+    <title>MediCare Connect: Project Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Cool Blues & Neutral Grays -->
-    <!-- Application Structure Plan: A single-page, vertical scrolling narrative that transforms the pitch deck into an interactive story. A fixed top navigation allows investors to jump to key sections (The Pitch, The Model, Execution, Project Details), supporting both linear and non-linear exploration. This structure is more engaging than a traditional slide deck and provides a modern, web-native experience. Interactive charts and hover effects are used to make data more digestible and highlight key information, improving comprehension and retention. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Academic Blue & Neutral Gray -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling narrative that converts the static project report into an engaging, modern web experience. A fixed top navigation allows for easy jumping between key sections (Introduction, System Design, etc.), accommodating both linear and non-linear exploration. This structure is more dynamic and user-friendly than a traditional slide deck. -->
     <!-- Visualization & Content Choices: 
-        - Market Opportunity (Slide 5): Goal: Show significant growth. Viz: Animated Bar Chart (Chart.js). Interaction: Animate on scroll-in to create impact. Justification: A bar chart is ideal for showing change over time.
-        - Business Model (Slide 6): Goal: Explain revenue streams. Viz: Interactive Cards (HTML/CSS). Interaction: Hover to reveal details. Justification: Encourages exploration without cluttering the UI.
-        - Financial Projections (Slide 10): Goal: Present revenue forecast. Viz: Bar Chart (Chart.js). Interaction: Hover tooltips for precise data. Justification: Standard, clear way to show financial forecasts.
-        - Technology & Future Scope: Goal: Showcase technical skills and project vision. Viz: Two-column layout with lists. Interaction: None needed, focus on clarity. Justification: Clear, concise presentation of technical details.
-        - All other "slides" are presented as clean, well-designed text and icon sections using Tailwind CSS for a professional, infographic-like feel. -->
+        - Literature Review: Goal: Compare existing systems. Viz: Grouped Bar Chart (Chart.js). Interaction: Hover tooltips to show feature presence. Justification: Visually demonstrates the "integration gap" our project fills.
+        - Proposed Work: Goal: Show project focus. Viz: Doughnut Chart (Chart.js). Interaction: Hover tooltips for percentages. Justification: Clearly visualizes the distribution of work across core pillars.
+        - System Architecture: Goal: Explain the system's structure. Viz: Interactive Diagram (HTML/CSS). Interaction: Hovering over components reveals detailed descriptions. Justification: More engaging and informative than a static diagram.
+        - Project Timeline: Goal: Show project plan. Viz: Gantt Chart (HTML Table). Interaction: Row highlighting on hover. Justification: A simple, universally understood format for project timelines.
+        - All other sections are presented as clean, well-designed text blocks with clear typography and spacing to enhance readability. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -30,22 +30,52 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
+            height: 400px;
+            max-height: 500px;
+        }
+        .doughnut-chart-container {
+             position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
             max-height: 400px;
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 400px;
+                height: 500px;
             }
         }
         .glassmorphism {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+        }
+        .gantt-bar {
+            background-color: #3b82f6; /* blue-500 */
+            border-radius: 4px;
+            height: 20px;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .arch-card {
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+        .arch-card:hover {
+            transform: translateY(-5px) scale(1.02);
         }
     </style>
 </head>
@@ -59,366 +89,328 @@
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
                         M
                     </div>
-                    <span class="text-2xl font-extrabold text-slate-800">MediCare Connect</span>
+                    <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">MediCare Connect</span>
                 </div>
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#pitch" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">The Pitch</a>
-                    <a href="#model" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">The Model</a>
-                    <a href="#execution" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Execution</a>
-                    <a href="#project-details" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Project Details</a>
+                <nav class="hidden md:flex items-center space-x-5">
+                    <a href="#team" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">The Team</a>
+                    <a href="#intro" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Introduction</a>
+                    <a href="#design" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">System Design</a>
+                    <a href="#modules" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Modules</a>
+                    <a href="#timeline" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Timeline</a>
                 </nav>
-                <a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all">
-                    Contact Us
-                </a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Slide 1: Hero Section -->
-        <section class="h-screen min-h-[700px] flex items-center justify-center bg-slate-100">
-            <div class="text-center max-w-4xl mx-auto px-4">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-800 leading-tight">
-                    Your Health, <span class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">Integrated.</span>
+        <!-- Slide 1: Title Section -->
+        <section class="pt-32 pb-20 bg-slate-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">
+                    MediCare Connect
                 </h1>
-                <p class="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-                    We are the all-in-one platform that simplifies healthcare for millions in India, from finding a local pharmacy to booking a critical care ambulance.
+                <p class="mt-4 text-xl md:text-2xl text-slate-600">
+                    An Integrated Digital Platform for Seamless Healthcare Access
                 </p>
-                <div class="mt-10">
-                    <a href="#pitch" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl">
-                        View The Pitch
-                    </a>
+            </div>
+        </section>
+        
+        <!-- The Team -->
+        <section id="team" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">The Team</h2>
+                    <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                </div>
+                <p class="mt-4 text-lg text-slate-600 text-center max-w-2xl mx-auto">A balanced team with expertise across technology, design, and strategy.</p>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">SS</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Sayyed Saifullah</h3>
+                        <p class="text-blue-600 font-medium">Project Lead & Backend</p>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">BV</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Bhumika Verma</h3>
+                        <p class="text-blue-600 font-medium">Frontend & UI/UX</p>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">AG</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Abhinav Gomra</h3>
+                        <p class="text-blue-600 font-medium">Full-Stack & Database</p>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">AC</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Anuj Chauhan</h3>
+                        <p class="text-blue-600 font-medium">Product & Integration</p>
+                    </div>
+                     <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">YI</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Yashashvi Indulkar</h3>
+                        <p class="text-blue-600 font-medium">Business Strategy</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Pitch Section Group -->
-        <div id="pitch" class="section">
-            <!-- Slide 2: The Problem -->
-            <section class="py-20 md:py-32 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Problem</h2>
-                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Healthcare in India is a Maze of Uncertainty</p>
-                        <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-600">
-                            Imagine your parent is sick. You need a specific medicine, a trusted specialist, and all their past records. You'll waste hours calling pharmacies, searching endlessly for a doctor, and digging for old prescriptions. In an emergency, this chaos can be dangerous.
-                        </p>
+        <!-- Introduction & Problem Statement -->
+        <section id="intro" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                <div>
+                    <div class="relative text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Introduction</h2>
+                        <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
                     </div>
-                    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                        <div class="p-8 bg-slate-50 rounded-xl">
-                            <div class="text-5xl font-black text-blue-500">↯</div>
-                            <h3 class="mt-4 text-xl font-bold">Fragmentation</h3>
-                            <p class="mt-2 text-slate-600">Critical health services are disconnected, forcing users to navigate multiple, incompatible platforms.</p>
-                        </div>
-                        <div class="p-8 bg-slate-50 rounded-xl">
-                            <div class="text-5xl font-black text-blue-500">⌛</div>
-                            <h3 class="mt-4 text-xl font-bold">Inefficiency</h3>
-                            <p class="mt-2 text-slate-600">Time-consuming, manual processes for finding doctors and medicine lead to critical delays in care.</p>
-                        </div>
-                        <div class="p-8 bg-slate-50 rounded-xl">
-                            <div class="text-5xl font-black text-blue-500">😟</div>
-                            <h3 class="mt-4 text-xl font-bold">Anxiety</h3>
-                            <p class="mt-2 text-slate-600">A lack of reliable, real-time information creates immense stress for patients and their caregivers.</p>
-                        </div>
+                    <div class="space-y-6 text-lg text-slate-700 leading-relaxed">
+                        <p>The Indian healthcare ecosystem is vast and complex. With over 500 million smartphone users, citizens now expect the same level of digital convenience in healthcare as they experience in e-commerce and banking. However, a significant gap exists as healthcare services remain largely fragmented, forcing patients to navigate multiple, disconnected platforms and offline processes.</p>
+                        <p>To address these challenges, we have developed MediCare Connect, a comprehensive, user-centric web application designed to be an all-in-one solution for personal healthcare management. Our platform acts as a bridge, connecting patients to the wider healthcare ecosystem through a single, intuitive interface with the mission to make healthcare simple, accessible, and effective.</p>
                     </div>
                 </div>
-            </section>
-
-            <!-- Slide 3: The Solution -->
-            <section class="py-20 md:py-32">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                        <div>
-                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Solution</h2>
-                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">One Platform. Total Health Control.</p>
-                            <p class="mt-6 text-xl text-slate-600">
-                                MediCare Connect is a mobile-first web application that integrates the entire healthcare journey into a single, intuitive interface. We empower users to take control of their health with confidence and ease.
-                            </p>
-                        </div>
-                        <div class="mt-12 lg:mt-0 space-y-8">
-                            <div class="flex items-start p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 text-white rounded-lg flex items-center justify-center text-2xl font-bold">➔</div>
-                                <div class="ml-5">
-                                    <h3 class="text-xl font-bold">Find</h3>
-                                    <p class="mt-1 text-slate-600">Instantly locate medicines in nearby pharmacies and find trusted doctors based on specialty and availability.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-400 text-white rounded-lg flex items-center justify-center text-2xl font-bold">✓</div>
-                                <div class="ml-5">
-                                    <h3 class="text-xl font-bold">Book</h3>
-                                    <p class="mt-1 text-slate-600">Schedule appointments with specialists and book emergency ambulance services in seconds, not hours.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-400 text-white rounded-lg flex items-center justify-center text-2xl font-bold">☰</div>
-                                <div class="ml-5">
-                                    <h3 class="text-xl font-bold">Manage</h3>
-                                    <p class="mt-1 text-slate-600">Access and manage personal health records, prescriptions, and appointment history from anywhere, anytime.</p>
-                                </div>
-                            </div>
-                        </div>
+                <div>
+                    <div class="relative text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Problem Statement & Objectives</h2>
+                        <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <blockquote class="text-xl text-slate-800 italic border-l-4 border-blue-500 pl-6">
+                            "The process of accessing healthcare services in India is highly fragmented and inefficient. Patients face significant challenges in finding reliable information about doctors and medicines, booking appointments, and managing their health records, leading to delayed care, increased costs, and significant anxiety, especially during emergencies."
+                        </blockquote>
+                        <h3 class="text-xl font-semibold mt-8 mb-4">Project Objectives:</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-lg text-slate-700">
+                            <li>To design and develop a centralized platform that integrates core healthcare services.</li>
+                            <li>To provide users with real-time, accurate information on providers and services.</li>
+                            <li>To create a simple, intuitive, and responsive user interface for a broad demographic.</li>
+                            <li>To build a scalable architecture to support future enhancements.</li>
+                        </ol>
                     </div>
                 </div>
-            </section>
-        </div>
-
-        <!-- The Model Section Group -->
-        <div id="model" class="section">
-            <!-- Slide 5: Market Opportunity -->
-            <section class="py-20 md:py-32 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                        <div class="mb-12 lg:mb-0">
-                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Opportunity</h2>
-                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">A Digital Health Revolution in India</p>
-                            <p class="mt-6 text-xl text-slate-600">
-                                The Indian healthcare market is at a digital tipping point. With over 500 million smartphone users and rising expectations for digital convenience, the opportunity to disrupt the traditional, inefficient model has never been greater.
-                            </p>
-                             <p class="mt-4 text-lg text-slate-600">
-                                Our focus on the immediate, high-frequency needs of urban and semi-urban patients positions us perfectly to capture a significant share of this booming market.
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-center font-bold text-slate-700 mb-2">Indian Digital Health Market Projection</p>
-                            <div class="chart-container">
-                                <canvas id="marketChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 6: Business Model -->
-            <section class="py-20 md:py-32">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Business Model</h2>
-                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">A Diversified & Scalable Revenue Strategy</p>
-                    </div>
-                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
-                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Transaction Fees (B2B)</h3>
-                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">A small commission from clinics for each successful appointment booked via our platform.</p>
-                        </div>
-                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
-                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Subscription Fees (B2B)</h3>
-                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">Premium listings for pharmacies & hospitals offering enhanced visibility and analytics.</p>
-                        </div>
-                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
-                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Premium Features (B2C)</h3>
-                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">A user subscription for advanced features like family accounts and insurance integration.</p>
-                        </div>
-                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
-                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Data Insights (Future)</h3>
-                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">Anonymized data on health trends for pharmaceutical and research organizations.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
         
-        <!-- Execution Section Group -->
-        <div id="execution" class="section">
-             <!-- Slide 7: Competitive Advantage -->
-            <section class="py-20 md:py-32 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Competitive Advantage</h2>
-                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Why We Win: The Power of Integration</p>
-                        <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-600">
-                           While competitors focus on a single vertical like medicine delivery or doctor booking, our key differentiator is integrating the entire patient journey. This creates a stickier product, builds stronger user habits, and results in higher lifetime value.
-                        </p>
+        <!-- Proposed Work -->
+        <section id="proposed-work" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Proposed Work</h2>
+                     <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                </div>
+                <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-lg text-slate-700 leading-relaxed">We propose the development of MediCare Connect, a Single-Page Application (SPA) that unifies three critical healthcare pillars. The platform is built on a modern technology stack to ensure performance, scalability, and a high-quality user experience across all devices. Our focus is distributed across these core functionalities to create a balanced and robust integrated system.</p>
+                        <ul class="mt-6 space-y-4 text-lg">
+                            <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3">1</span><span>Medicine Finder: A module to locate nearby pharmacies with real-time stock availability and pricing.</span></li>
+                            <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3">2</span><span>Doctor Finder: A comprehensive search module for finding specialists and booking appointments seamlessly.</span></li>
+                            <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3">3</span><span>Ambulance Service: A dedicated, high-priority module for booking emergency transport with minimal steps.</span></li>
+                        </ul>
                     </div>
-                    <div class="mt-16 max-w-4xl mx-auto">
-                        <div class="relative grid grid-cols-2 grid-rows-2 gap-px border-2 border-slate-200 rounded-xl">
-                            <div class="absolute top-1/2 left-0 -translate-y-1/2 -ml-8 rotate-[-90deg] text-slate-500 font-bold">UX</div>
-                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 mb-[-30px] text-slate-500 font-bold">Platform</div>
-                            <div class="p-6 text-center">
-                                <h4 class="font-bold text-slate-500">Poor UX / Niche</h4>
-                                <p class="mt-2 text-sm text-slate-400">Local Pharmacy Apps</p>
-                            </div>
-                            <div class="p-6 text-center">
-                                <h4 class="font-bold text-slate-500">Poor UX / Integrated</h4>
-                                <p class="mt-2 text-sm text-slate-400">Government Health Portals</p>
-                            </div>
-                            <div class="p-6 text-center">
-                                <h4 class="font-bold text-slate-500">Excellent UX / Niche</h4>
-                                <p class="mt-2 text-sm text-slate-400">Practo, 1mg</p>
-                            </div>
-                            <div class="p-6 bg-blue-50 rounded-br-xl rounded-tl-xl text-center border-2 border-blue-500">
-                                <h4 class="font-bold text-blue-600">Excellent UX / Integrated</h4>
-                                <p class="mt-2 text-lg font-extrabold">MediCare Connect</p>
-                            </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6">Core Feature Focus</h3>
+                        <div class="doughnut-chart-container">
+                            <canvas id="proposedWorkChart"></canvas>
                         </div>
                     </div>
                 </div>
-            </section>
-            
-            <!-- Slide 8: Traction & Roadmap -->
-            <section class="py-20 md:py-32">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Traction & Roadmap</h2>
-                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Our Journey and What's Next</p>
-                    </div>
-                    <div class="mt-16 relative">
-                        <div class="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-slate-200" aria-hidden="true"></div>
-                        <div class="space-y-16">
-                            <div class="relative flex items-start">
-                                <div class="w-1/2 pr-8 text-right">
-                                    <p class="text-lg font-bold text-blue-600">Product Launch</p>
-                                    <p class="mt-1 text-slate-600">Successfully launched a fully-functional MVP with medicine, doctor, and ambulance finders.</p>
-                                </div>
-                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full border-4 border-slate-50 flex items-center justify-center text-white font-bold">✓</div>
-                                <div class="w-1/2 pl-8"></div>
-                            </div>
-                             <div class="relative flex items-start">
-                                <div class="w-1/2 pr-8"></div>
-                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
-                                <div class="w-1/2 pl-8 text-left">
-                                    <p class="text-lg font-bold text-slate-800">Pilot Program</p>
-                                    <p class="mt-1 text-slate-600">Onboard 1000+ doctors and 500+ pharmacies in our pilot city, Kothri Kalan, and gather user feedback.</p>
-                                </div>
-                            </div>
-                             <div class="relative flex items-start">
-                                <div class="w-1/2 pr-8 text-right">
-                                    <p class="text-lg font-bold text-slate-800">Q4 2025</p>
-                                    <p class="mt-1 text-slate-600">Expand operations to 3 major Tier-2 cities based on pilot program findings.</p>
-                                </div>
-                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
-                                <div class="w-1/2 pl-8"></div>
-                            </div>
-                             <div class="relative flex items-start">
-                                <div class="w-1/2 pr-8"></div>
-                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
-                                <div class="w-1/2 pl-8 text-left">
-                                    <p class="text-lg font-bold text-slate-800">Q2 2026</p>
-                                    <p class="mt-1 text-slate-600">Launch native iOS & Android apps and introduce premium B2C subscription features.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
 
-        <!-- Project Details Section Group -->
-        <div id="project-details" class="section">
-            <!-- Financial Projections -->
-            <section class="py-20 md:py-32 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                        <div class="mb-12 lg:mb-0">
-                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Financials</h2>
-                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">A Clear Path to Profitability</p>
-                            <p class="mt-6 text-xl text-slate-600">
-                                Our financial model is built on conservative estimates for user acquisition and a multi-pronged revenue strategy. We project strong growth as we expand our footprint and user base, leading to break-even within three years.
-                            </p>
-                            <div class="mt-8 space-y-4">
-                                <p><span class="font-bold">Year 1:</span> Focus on user acquisition, achieve 100k MAU.</p>
-                                <p><span class="font-bold">Year 2:</span> Scale B2B subscriptions, achieve 500k MAU.</p>
-                                <p><span class="font-bold">Year 3:</span> Reach 1.5M MAU and achieve break-even.</p>
-                            </div>
+        <!-- System Design -->
+        <section id="design" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">System Design</h2>
+                    <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                </div>
+                <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Literature Review -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6">Literature Review & Competitive Analysis</h3>
+                        <p class="text-lg text-slate-700 mb-6">We analyzed existing platforms like Practo, 1mg, and Apollo 24/7. While they excel in specific verticals, none offer a truly integrated experience. Our project is designed to fill this integration gap.</p>
+                        <div class="chart-container bg-white p-4 rounded-xl shadow-md border border-slate-200">
+                            <canvas id="featureChart"></canvas>
                         </div>
-                        <div>
-                            <p class="text-center font-bold text-slate-700 mb-2">Projected Revenue Growth (in ₹ Crores)</p>
-                            <div class="chart-container">
-                                <canvas id="revenueChart"></canvas>
+                    </div>
+                    <!-- System Architecture -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6">Interactive System Architecture</h3>
+                        <p class="text-lg text-slate-700 mb-6">Our project follows a modern Client-Server Architecture. Hover over a component below to see its detailed responsibilities.</p>
+                        <div id="architecture-diagram" class="bg-white p-8 rounded-xl shadow-md border border-slate-200 space-y-4">
+                            <div id="arch-client" class="arch-card p-4 bg-blue-100 border-2 border-blue-300 rounded-lg text-center cursor-pointer">
+                                <p class="font-bold text-blue-800">Client-Side (Frontend)</p>
+                            </div>
+                            <div class="text-center font-bold text-2xl text-slate-400">↓↑ <span class="text-sm font-medium text-slate-500 align-middle">API Calls</span></div>
+                            <div id="arch-server" class="arch-card p-4 bg-green-100 border-2 border-green-300 rounded-lg text-center cursor-pointer">
+                                <p class="font-bold text-green-800">Server-Side (Backend)</p>
+                            </div>
+                            <div class="text-center font-bold text-2xl text-slate-400">↓↑ <span class="text-sm font-medium text-slate-500 align-middle">DB Queries</span></div>
+                            <div id="arch-db" class="arch-card p-4 bg-purple-100 border-2 border-purple-300 rounded-lg text-center cursor-pointer">
+                                <p class="font-bold text-purple-800">Database</p>
+                            </div>
+                            <div id="arch-details" class="mt-6 p-4 bg-slate-50 rounded-lg min-h-[100px] text-slate-700 transition-opacity duration-300 flex items-center justify-center">
+                                Hover over a component to see details.
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            
-            <!-- Technology & Future Scope -->
-            <section class="py-20 md:py-32">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Project Details</h2>
-                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Technology & Future Scope</p>
-                    </div>
-                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16">
-                        <div class="p-8 bg-white rounded-xl shadow-md">
-                            <h3 class="text-2xl font-bold text-slate-800 mb-6">Technology Stack</h3>
-                            <ul class="space-y-4 text-lg text-slate-600">
-                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Frontend: React.js, HTML5</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Styling: Tailwind CSS</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Visualizations: Chart.js</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Icons: Lucide-React</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Architecture: Single-Page Application</li>
-                            </ul>
+            </div>
+        </section>
+
+        <!-- Modules & Requirements -->
+        <section id="modules" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Modules & Requirements</h2>
+                    <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-semibold text-center mb-6">Modules Explained</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 hover:shadow-blue-200 hover:-translate-y-2 transition-all duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center text-white text-3xl mb-4">👤</div>
+                            <h4 class="text-xl font-bold text-blue-700">User & Dashboard</h4>
+                            <p class="mt-2 text-slate-600">Handles user authentication and provides a central hub for accessing all features.</p>
                         </div>
-                        <div class="p-8 bg-white rounded-xl shadow-md">
-                            <h3 class="text-2xl font-bold text-slate-800 mb-6">Future Scope</h3>
-                            <ul class="space-y-4 text-lg text-slate-600">
-                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Native Mobile Apps (iOS/Android)</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Insurance & TPA Integration</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>AI-Powered Health Insights</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Telehealth Platform Expansion</li>
-                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Wearable Device Integration</li>
-                            </ul>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 hover:shadow-green-200 hover:-translate-y-2 transition-all duration-300">
+                             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-400 rounded-xl flex items-center justify-center text-white text-3xl mb-4">💊</div>
+                            <h4 class="text-xl font-bold text-green-700">Medicine Finder</h4>
+                            <p class="mt-2 text-slate-600">Manages search logic and real-time inventory data from partner pharmacies.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 hover:shadow-purple-200 hover:-translate-y-2 transition-all duration-300">
+                             <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-400 rounded-xl flex items-center justify-center text-white text-3xl mb-4">🩺</div>
+                            <h4 class="text-xl font-bold text-purple-700">Doctor Finder</h4>
+                            <p class="mt-2 text-slate-600">Manages doctor profiles, a sophisticated filtering system, and appointment logic.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 hover:shadow-red-200 hover:-translate-y-2 transition-all duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-rose-400 rounded-xl flex items-center justify-center text-white text-3xl mb-4">🚑</div>
+                            <h4 class="text-xl font-bold text-red-700">Ambulance Service</h4>
+                            <p class="mt-2 text-slate-600">A specialized module for high-priority requests with location capture and tracking.</p>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <h3 class="text-2xl font-semibold mb-4">Software Requirements</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+                            <li><span class="font-semibold">Frontend:</span> React.js, HTML5, JS (ES6+)</li>
+                            <li><span class="font-semibold">Styling:</span> Tailwind CSS</li>
+                            <li><span class="font-semibold">Data Visualization:</span> Chart.js</li>
+                            <li><span class="font-semibold">Development IDE:</span> VS Code</li>
+                            <li><span class="font-semibold">Browser Support:</span> Chrome, Firefox, etc.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <h3 class="text-2xl font-semibold mb-4">Hardware Requirements</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+                            <li><span class="font-semibold">User End:</span> Any modern device (PC, smartphone) with an internet connection.</li>
+                            <li>No specialized hardware required.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <!-- Contact Section Group -->
-        <div id="contact" class="section">
-            <!-- Slide 9: The Team -->
-            <section class="py-20 md:py-32 bg-white">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Team</h2>
-                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">The Team Behind MediCare Connect</p>
-                        <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-600">
-                           A balanced team with expertise across technology, design, and strategy, passionate about solving real-world healthcare problems.
-                        </p>
+        <!-- Real-Time Usage -->
+        <section id="real-time-usage" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Real-Time Usage Scenarios</h2>
+                    <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                </div>
+                <div class="mt-12 space-y-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
+                        <div class="text-5xl flex-shrink-0">👨‍👩‍👧</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700">A Worried Parent</h3>
+                            <p class="mt-2 text-lg text-slate-600">A child develops a fever late at night. The parent uses MediCare Connect to find a 24/7 pharmacy that has "Paracetamol Syrup" in stock and gets directions instantly.</p>
+                        </div>
                     </div>
-                    <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                        <div class="text-center">
-                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">SS</span></div>
-                            <h3 class="mt-4 text-lg font-bold">Sayyed Saifullah</h3>
-                            <p class="text-blue-600 font-medium">Project Lead & Backend</p>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
+                        <div class="text-5xl flex-shrink-0">👩‍💼</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700">A Busy Professional</h3>
+                            <p class="mt-2 text-lg text-slate-600">An individual needs to see a dermatologist. They use the app to filter doctors available for video consultation after work hours, check ratings, and book an appointment in under five minutes.</p>
                         </div>
-                        <div class="text-center">
-                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">BV</span></div>
-                            <h3 class="mt-4 text-lg font-bold">Bhumika Verma</h3>
-                            <p class="text-blue-600 font-medium">Frontend & UI/UX</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">AG</span></div>
-                            <h3 class="mt-4 text-lg font-bold">Abhinav Gomra</h3>
-                            <p class="text-blue-600 font-medium">Full-Stack & Database</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">AC</span></div>
-                            <h3 class="mt-4 text-lg font-bold">Anuj Chauhan</h3>
-                            <p class="text-blue-600 font-medium">Product & Integration</p>
-                        </div>
-                         <div class="text-center">
-                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">YI</span></div>
-                            <h3 class="mt-4 text-lg font-bold">Yashashvi Indulkar</h3>
-                            <p class="text-blue-600 font-medium">Business Strategy</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
+                        <div class="text-5xl flex-shrink-0">🚨</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700">An Emergency Situation</h3>
+                            <p class="mt-2 text-lg text-slate-600">A person witnesses an accident. They use the "Emergency Ambulance" feature to quickly dispatch an ambulance to their current location, providing critical, time-sensitive assistance.</p>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+             </div>
+        </section>
+
+        <!-- Timeline -->
+        <section id="timeline" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Project Timeline</h2>
+                    <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+                </div>
+                <p class="mt-4 text-lg text-slate-600 text-center">This project was executed over a 7-week period, following a structured plan from conception to deployment.</p>
+                <div class="mt-12 bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+                    <table class="w-full border-collapse text-sm md:text-base min-w-[600px]">
+                        <thead>
+                            <tr class="border-b-2 border-slate-200">
+                                <th class="p-2 text-left font-semibold w-1/3">Phase / Task</th>
+                                <th class="p-2 text-center font-semibold">Week 1</th>
+                                <th class="p-2 text-center font-semibold">Week 2</th>
+                                <th class="p-2 text-center font-semibold">Week 3</th>
+                                <th class="p-2 text-center font-semibold">Week 4</th>
+                                <th class="p-2 text-center font-semibold">Week 5</th>
+                                <th class="p-2 text-center font-semibold">Week 6</th>
+                                <th class="p-2 text-center font-semibold">Week 7</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Requirement Analysis & System Design</td>
+                                <td class="p-2"><div class="gantt-bar"></div></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">UI/UX Wireframing & Prototyping</td>
+                                <td></td><td class="p-2"><div class="gantt-bar"></div></td><td></td><td></td><td></td><td></td><td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Backend & Database Setup</td>
+                                <td></td><td></td><td class="p-2"><div class="gantt-bar"></div></td><td></td><td></td><td></td><td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Frontend - Core Modules</td>
+                                <td></td><td></td><td></td><td class="p-2"><div class="gantt-bar"></div></td><td></td><td></td><td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Frontend - Feature Integration</td>
+                                <td></td><td></td><td></td><td></td><td class="p-2"><div class="gantt-bar"></div></td><td></td><td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Unit & Integration Testing</td>
+                                <td></td><td></td><td></td><td></td><td></td><td class="p-2"><div class="gantt-bar"></div></td><td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Final Review & Presentation</td>
+                                <td></td><td></td><td></td><td></td><td></td><td></td><td class="p-2"><div class="gantt-bar"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
     </main>
 
     <!-- Footer -->
     <footer class="bg-slate-800 text-white">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-extrabold">Let's Build a Healthier Future, Together.</h2>
-            <p class="mt-4 text-lg text-slate-300">Thank you for considering MediCare Connect.</p>
-            <div class="mt-6">
-                <p class="font-bold">Contact:</p>
-                <p class="text-slate-300">contact@medicare-connect.com</p>
-                <p class="text-slate-300">www.medicare-connect.com (example)</p>
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <h3 class="text-xl font-semibold text-center">References</h3>
+            <div class="mt-6 text-center text-slate-300 space-y-1">
+                <p>Digital Health India - A Nasscom Report on the Health Tech Landscape.</p>
+                <p>Practo.com & Tata 1mg - For analysis of existing market solutions.</p>
+                <p>React.js, Tailwind CSS, and Chart.js Official Documentation.</p>
+                <p>"The Design of Everyday Things" by Don Norman - For UI/UX principles.</p>
             </div>
-            <p class="mt-8 text-sm text-slate-400">&copy; 2025 MediCare Connect. All rights reserved.</p>
+            <p class="mt-8 text-sm text-slate-400 text-center">&copy; 2025 MediCare Connect Team. All rights reserved.</p>
         </div>
     </footer>
 
@@ -444,81 +436,100 @@
                 }
             });
 
+            // Fade-in sections on scroll
+            const sections = document.querySelectorAll('.fade-in-section');
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Interactive System Architecture Diagram
+            const archDetailsContent = {
+                client: `<strong>Client-Side (Frontend):</strong> Built with modern JavaScript frameworks. Responsible for rendering the user interface, managing user interactions, and communicating with the server via RESTful API calls. It handles all visual elements, state management, and ensures a responsive design across all devices.`,
+                server: `<strong>Server-Side (Backend):</strong> Manages the core business logic, processes data, handles user authentication, and serves data to the client. It exposes a set of API endpoints that the frontend consumes and connects securely to the database to store and retrieve information.`,
+                db: `<strong>Database:</strong> A persistent storage system (e.g., MongoDB, PostgreSQL). It stores all critical data, including user profiles, doctor information, pharmacy inventories, appointment records, and health data. Chosen for reliability, scalability, and data integrity.`
+            };
+            const detailsContainer = document.getElementById('arch-details');
+            const archClient = document.getElementById('arch-client');
+            const archServer = document.getElementById('arch-server');
+            const archDb = document.getElementById('arch-db');
+
+            if (archClient) archClient.addEventListener('mouseover', () => { detailsContainer.innerHTML = archDetailsContent.client; });
+            if (archServer) archServer.addEventListener('mouseover', () => { detailsContainer.innerHTML = archDetailsContent.server; });
+            if (archDb) archDb.addEventListener('mouseover', () => { detailsContainer.innerHTML = archDetailsContent.db; });
+
             // Chart.js implementation
             const createChart = (ctx, config) => {
+                if (!ctx) return;
                 const chart = new Chart(ctx, config);
                 return chart;
             };
             
             const chartConfigs = {
-                marketChart: {
-                    type: 'bar',
+                proposedWorkChart: {
+                    type: 'doughnut',
                     data: {
-                        labels: ['2023', '2025', '2027', '2030'],
+                        labels: ['Medicine Finder', 'Doctor Finder', 'Ambulance Service'],
                         datasets: [{
-                            label: 'Market Size ($ Billion)',
-                            data: [12, 18, 27, 37],
-                            backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 2,
-                            borderRadius: 5,
+                            label: 'Core Feature Focus',
+                            data: [40, 40, 20],
+                            backgroundColor: [
+                                'rgba(16, 185, 129, 0.7)',  // Green
+                                'rgba(99, 102, 241, 0.7)',  // Indigo
+                                'rgba(239, 68, 68, 0.7)'    // Red
+                            ],
+                            borderColor: '#f8fafc',
+                            borderWidth: 4,
                         }]
                     },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: (context) => `$${context.raw} Billion`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: { beginAtZero: true, title: { display: true, text: 'Market Size ($B)' } },
-                            x: { grid: { display: false } }
-                        }
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw}%` } } }
                     }
                 },
-                revenueChart: {
+                featureChart: {
                     type: 'bar',
                     data: {
-                        labels: ['Year 1', 'Year 2', 'Year 3'],
-                        datasets: [{
-                            label: 'Revenue (₹ Crores)',
-                            data: [0.5, 3.5, 12],
-                            backgroundColor: 'rgba(16, 185, 129, 0.5)',
-                            borderColor: 'rgba(16, 185, 129, 1)',
-                            borderWidth: 2,
-                            borderRadius: 5,
-                        }]
+                        labels: ['Doctor Booking', 'Medicine Search', 'Ambulance Booking', 'Integrated Records'],
+                        datasets: [
+                            {
+                                label: 'MediCare Connect',
+                                data: [1, 1, 1, 1],
+                                backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Competitor A (e.g., Practo)',
+                                data: [1, 1, 0, 0],
+                                backgroundColor: 'rgba(203, 213, 225, 0.6)',
+                                borderColor: 'rgba(100, 116, 139, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Competitor B (e.g., 1mg)',
+                                data: [1, 1, 0, 0],
+                                backgroundColor: 'rgba(203, 213, 225, 0.6)',
+                                borderColor: 'rgba(100, 116, 139, 1)',
+                                borderWidth: 1
+                            }
+                        ]
                     },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                             tooltip: {
-                                callbacks: {
-                                    label: (context) => `₹${context.raw} Crores`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: { beginAtZero: true, title: { display: true, text: 'Revenue (₹Cr)' } },
-                            x: { grid: { display: false } }
-                        }
+                        responsive: true, maintainAspectRatio: false,
+                        scales: { y: { ticks: { stepSize: 1, callback: (v) => v === 1 ? 'Yes' : 'No' } }, x: { grid: { display: false } } },
+                        plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.raw === 1 ? 'Available' : 'Not Available'}` } } }
                     }
                 }
             };
             
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.4 
-            };
-
             const chartObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -530,7 +541,7 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.4 });
 
             Object.keys(chartConfigs).forEach(id => {
                 const canvas = document.getElementById(id);
