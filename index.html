@@ -15,7 +15,7 @@
         - Market Opportunity (Slide 5): Goal: Show significant growth. Viz: Animated Bar Chart (Chart.js). Interaction: Animate on scroll-in to create impact. Justification: A bar chart is ideal for showing change over time.
         - Business Model (Slide 6): Goal: Explain revenue streams. Viz: Interactive Cards (HTML/CSS). Interaction: Hover to reveal details. Justification: Encourages exploration without cluttering the UI.
         - Financial Projections (Slide 10): Goal: Present revenue forecast. Viz: Bar Chart (Chart.js). Interaction: Hover tooltips for precise data. Justification: Standard, clear way to show financial forecasts.
-        - The Ask (Slide 11): Goal: Detail fund allocation. Viz: Donut Chart (Chart.js). Interaction: Hover tooltips for percentages. Justification: Excellent for showing parts of a whole.
+        - Technology & Future Scope: Goal: Showcase technical skills and project vision. Viz: Two-column layout with lists. Interaction: None needed, focus on clarity. Justification: Clear, concise presentation of technical details.
         - All other "slides" are presented as clean, well-designed text and icon sections using Tailwind CSS for a professional, infographic-like feel. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -65,7 +65,7 @@
                     <a href="#pitch" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">The Pitch</a>
                     <a href="#model" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">The Model</a>
                     <a href="#execution" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Execution</a>
-                    <a href="#financials" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Financials</a>
+                    <a href="#project-details" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Project Details</a>
                 </nav>
                 <a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all">
                     Contact Us
@@ -275,16 +275,16 @@
                             </div>
                              <div class="relative flex items-start">
                                 <div class="w-1/2 pr-8"></div>
-                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full border-4 border-slate-50 flex items-center justify-center text-white font-bold">✓</div>
+                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
                                 <div class="w-1/2 pl-8 text-left">
-                                    <p class="text-lg font-bold text-blue-600">Pilot Program</p>
-                                    <p class="mt-1 text-slate-600">Onboarded 1000+ doctors and 500+ pharmacies in our pilot city, Kothri Kalan, with positive user feedback.</p>
+                                    <p class="text-lg font-bold text-slate-800">Pilot Program</p>
+                                    <p class="mt-1 text-slate-600">Onboard 1000+ doctors and 500+ pharmacies in our pilot city, Kothri Kalan, and gather user feedback.</p>
                                 </div>
                             </div>
                              <div class="relative flex items-start">
                                 <div class="w-1/2 pr-8 text-right">
                                     <p class="text-lg font-bold text-slate-800">Q4 2025</p>
-                                    <p class="mt-1 text-slate-600">Secure seed funding and expand operations to 3 major Tier-2 cities.</p>
+                                    <p class="mt-1 text-slate-600">Expand operations to 3 major Tier-2 cities based on pilot program findings.</p>
                                 </div>
                                 <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
                                 <div class="w-1/2 pl-8"></div>
@@ -303,9 +303,9 @@
             </section>
         </div>
 
-        <!-- Financials Section Group -->
-        <div id="financials" class="section">
-            <!-- Slide 10: Financial Projections -->
+        <!-- Project Details Section Group -->
+        <div id="project-details" class="section">
+            <!-- Financial Projections -->
             <section class="py-20 md:py-32 bg-white">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
@@ -331,22 +331,33 @@
                 </div>
             </section>
             
-            <!-- Slide 11: The Ask -->
+            <!-- Technology & Future Scope -->
             <section class="py-20 md:py-32">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                        <div class="mb-12 lg:mb-0 lg:order-2">
-                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Ask</h2>
-                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Join Us in Building the Future of Healthcare</p>
-                            <p class="mt-6 text-xl text-slate-600">
-                                We are seeking <span class="font-black text-blue-600">₹1.5 Crore</span> in seed funding to accelerate our growth and product development. This investment provides an 18-month runway to achieve our next major milestone of 100,000 active users.
-                            </p>
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Project Details</h2>
+                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Technology & Future Scope</p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-16">
+                        <div class="p-8 bg-white rounded-xl shadow-md">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-6">Technology Stack</h3>
+                            <ul class="space-y-4 text-lg text-slate-600">
+                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Frontend: React.js, HTML5</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Styling: Tailwind CSS</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Visualizations: Chart.js</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Icons: Lucide-React</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-4"></span>Architecture: Single-Page Application</li>
+                            </ul>
                         </div>
-                        <div class="lg:order-1">
-                            <p class="text-center font-bold text-slate-700 mb-2">Allocation of Funds</p>
-                            <div class="chart-container max-w-sm">
-                                <canvas id="askChart"></canvas>
-                            </div>
+                        <div class="p-8 bg-white rounded-xl shadow-md">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-6">Future Scope</h3>
+                            <ul class="space-y-4 text-lg text-slate-600">
+                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Native Mobile Apps (iOS/Android)</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Insurance & TPA Integration</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>AI-Powered Health Insights</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Telehealth Platform Expansion</li>
+                                <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-4"></span>Wearable Device Integration</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -460,7 +471,7 @@
                             legend: { display: false },
                             tooltip: {
                                 callbacks: {
-                                    label: (context) => `$${context.raw} Billion`
+                                    label: (context) => $${context.raw} Billion
                                 }
                             }
                         },
@@ -490,41 +501,13 @@
                             legend: { display: false },
                              tooltip: {
                                 callbacks: {
-                                    label: (context) => `₹${context.raw} Crores`
+                                    label: (context) => ₹${context.raw} Crores
                                 }
                             }
                         },
                         scales: {
                             y: { beginAtZero: true, title: { display: true, text: 'Revenue (₹Cr)' } },
                             x: { grid: { display: false } }
-                        }
-                    }
-                },
-                askChart: {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Product Development', 'Market Expansion', 'Team Growth'],
-                        datasets: [{
-                            data: [40, 35, 25],
-                            backgroundColor: [
-                                'rgba(59, 130, 246, 0.7)',
-                                'rgba(16, 185, 129, 0.7)',
-                                'rgba(107, 114, 128, 0.7)'
-                            ],
-                            borderColor: '#f8fafc',
-                            borderWidth: 4,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'bottom' },
-                            tooltip: {
-                                callbacks: {
-                                    label: (context) => `${context.label}: ${context.raw}%`
-                                }
-                            }
                         }
                     }
                 }
