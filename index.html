@@ -460,7 +460,7 @@
                             legend: { display: false },
                             tooltip: {
                                 callbacks: {
-                                    label: (context) => $${context.raw} Billion
+                                    label: (context) => `$${context.raw} Billion`
                                 }
                             }
                         },
@@ -490,7 +490,7 @@
                             legend: { display: false },
                              tooltip: {
                                 callbacks: {
-                                    label: (context) => ₹${context.raw} Crores
+                                    label: (context) => `₹${context.raw} Crores`
                                 }
                             }
                         },
@@ -522,7 +522,7 @@
                             legend: { position: 'bottom' },
                             tooltip: {
                                 callbacks: {
-                                    label: (context) => ${context.label}: ${context.raw}%
+                                    label: (context) => `${context.label}: ${context.raw}%`
                                 }
                             }
                         }
