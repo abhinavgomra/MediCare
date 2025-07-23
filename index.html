@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Connect: Interactive Pitch Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cool Blues & Neutral Grays -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling narrative that transforms the pitch deck into an interactive story. A fixed top navigation allows investors to jump to key sections (The Pitch, The Model, Execution, Financials), supporting both linear and non-linear exploration. This structure is more engaging than a traditional slide deck and provides a modern, web-native experience. Interactive charts and hover effects are used to make data more digestible and highlight key information, improving comprehension and retention. -->
+    <!-- Visualization & Content Choices: 
+        - Market Opportunity (Slide 5): Goal: Show significant growth. Viz: Animated Bar Chart (Chart.js). Interaction: Animate on scroll-in to create impact. Justification: A bar chart is ideal for showing change over time.
+        - Business Model (Slide 6): Goal: Explain revenue streams. Viz: Interactive Cards (HTML/CSS). Interaction: Hover to reveal details. Justification: Encourages exploration without cluttering the UI.
+        - Financial Projections (Slide 10): Goal: Present revenue forecast. Viz: Bar Chart (Chart.js). Interaction: Hover tooltips for precise data. Justification: Standard, clear way to show financial forecasts.
+        - The Ask (Slide 11): Goal: Detail fund allocation. Viz: Donut Chart (Chart.js). Interaction: Hover tooltips for percentages. Justification: Excellent for showing parts of a whole.
+        - All other "slides" are presented as clean, well-designed text and icon sections using Tailwind CSS for a professional, infographic-like feel. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .section {
+            scroll-margin-top: 80px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="glassmorphism fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
+                        M
+                    </div>
+                    <span class="text-2xl font-extrabold text-slate-800">MediCare Connect</span>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#pitch" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">The Pitch</a>
+                    <a href="#model" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">The Model</a>
+                    <a href="#execution" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Execution</a>
+                    <a href="#financials" class="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors">Financials</a>
+                </nav>
+                <a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Slide 1: Hero Section -->
+        <section class="h-screen min-h-[700px] flex items-center justify-center bg-slate-100">
+            <div class="text-center max-w-4xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-800 leading-tight">
+                    Your Health, <span class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">Integrated.</span>
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
+                    We are the all-in-one platform that simplifies healthcare for millions in India, from finding a local pharmacy to booking a critical care ambulance.
+                </p>
+                <div class="mt-10">
+                    <a href="#pitch" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl">
+                        View The Pitch
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Pitch Section Group -->
+        <div id="pitch" class="section">
+            <!-- Slide 2: The Problem -->
+            <section class="py-20 md:py-32 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Problem</h2>
+                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Healthcare in India is a Maze of Uncertainty</p>
+                        <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-600">
+                            Imagine your parent is sick. You need a specific medicine, a trusted specialist, and all their past records. You'll waste hours calling pharmacies, searching endlessly for a doctor, and digging for old prescriptions. In an emergency, this chaos can be dangerous.
+                        </p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-8 bg-slate-50 rounded-xl">
+                            <div class="text-5xl font-black text-blue-500">↯</div>
+                            <h3 class="mt-4 text-xl font-bold">Fragmentation</h3>
+                            <p class="mt-2 text-slate-600">Critical health services are disconnected, forcing users to navigate multiple, incompatible platforms.</p>
+                        </div>
+                        <div class="p-8 bg-slate-50 rounded-xl">
+                            <div class="text-5xl font-black text-blue-500">⌛</div>
+                            <h3 class="mt-4 text-xl font-bold">Inefficiency</h3>
+                            <p class="mt-2 text-slate-600">Time-consuming, manual processes for finding doctors and medicine lead to critical delays in care.</p>
+                        </div>
+                        <div class="p-8 bg-slate-50 rounded-xl">
+                            <div class="text-5xl font-black text-blue-500">😟</div>
+                            <h3 class="mt-4 text-xl font-bold">Anxiety</h3>
+                            <p class="mt-2 text-slate-600">A lack of reliable, real-time information creates immense stress for patients and their caregivers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: The Solution -->
+            <section class="py-20 md:py-32">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                        <div>
+                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Solution</h2>
+                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">One Platform. Total Health Control.</p>
+                            <p class="mt-6 text-xl text-slate-600">
+                                MediCare Connect is a mobile-first web application that integrates the entire healthcare journey into a single, intuitive interface. We empower users to take control of their health with confidence and ease.
+                            </p>
+                        </div>
+                        <div class="mt-12 lg:mt-0 space-y-8">
+                            <div class="flex items-start p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 text-white rounded-lg flex items-center justify-center text-2xl font-bold">➔</div>
+                                <div class="ml-5">
+                                    <h3 class="text-xl font-bold">Find</h3>
+                                    <p class="mt-1 text-slate-600">Instantly locate medicines in nearby pharmacies and find trusted doctors based on specialty and availability.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-400 text-white rounded-lg flex items-center justify-center text-2xl font-bold">✓</div>
+                                <div class="ml-5">
+                                    <h3 class="text-xl font-bold">Book</h3>
+                                    <p class="mt-1 text-slate-600">Schedule appointments with specialists and book emergency ambulance services in seconds, not hours.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-400 text-white rounded-lg flex items-center justify-center text-2xl font-bold">☰</div>
+                                <div class="ml-5">
+                                    <h3 class="text-xl font-bold">Manage</h3>
+                                    <p class="mt-1 text-slate-600">Access and manage personal health records, prescriptions, and appointment history from anywhere, anytime.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- The Model Section Group -->
+        <div id="model" class="section">
+            <!-- Slide 5: Market Opportunity -->
+            <section class="py-20 md:py-32 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                        <div class="mb-12 lg:mb-0">
+                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Opportunity</h2>
+                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">A Digital Health Revolution in India</p>
+                            <p class="mt-6 text-xl text-slate-600">
+                                The Indian healthcare market is at a digital tipping point. With over 500 million smartphone users and rising expectations for digital convenience, the opportunity to disrupt the traditional, inefficient model has never been greater.
+                            </p>
+                             <p class="mt-4 text-lg text-slate-600">
+                                Our focus on the immediate, high-frequency needs of urban and semi-urban patients positions us perfectly to capture a significant share of this booming market.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-center font-bold text-slate-700 mb-2">Indian Digital Health Market Projection</p>
+                            <div class="chart-container">
+                                <canvas id="marketChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Business Model -->
+            <section class="py-20 md:py-32">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Business Model</h2>
+                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">A Diversified & Scalable Revenue Strategy</p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
+                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Transaction Fees (B2B)</h3>
+                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">A small commission from clinics for each successful appointment booked via our platform.</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
+                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Subscription Fees (B2B)</h3>
+                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">Premium listings for pharmacies & hospitals offering enhanced visibility and analytics.</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
+                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Premium Features (B2C)</h3>
+                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">A user subscription for advanced features like family accounts and insurance integration.</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-xl shadow-md group hover:bg-blue-500 hover:scale-105 transition-all duration-300">
+                            <h3 class="text-xl font-bold text-blue-600 group-hover:text-white">Data Insights (Future)</h3>
+                            <p class="mt-2 text-slate-600 group-hover:text-blue-100">Anonymized data on health trends for pharmaceutical and research organizations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Execution Section Group -->
+        <div id="execution" class="section">
+             <!-- Slide 7: Competitive Advantage -->
+            <section class="py-20 md:py-32 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Competitive Advantage</h2>
+                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Why We Win: The Power of Integration</p>
+                        <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-600">
+                           While competitors focus on a single vertical like medicine delivery or doctor booking, our key differentiator is integrating the entire patient journey. This creates a stickier product, builds stronger user habits, and results in higher lifetime value.
+                        </p>
+                    </div>
+                    <div class="mt-16 max-w-4xl mx-auto">
+                        <div class="relative grid grid-cols-2 grid-rows-2 gap-px border-2 border-slate-200 rounded-xl">
+                            <div class="absolute top-1/2 left-0 -translate-y-1/2 -ml-8 rotate-[-90deg] text-slate-500 font-bold">UX</div>
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 mb-[-30px] text-slate-500 font-bold">Platform</div>
+                            <div class="p-6 text-center">
+                                <h4 class="font-bold text-slate-500">Poor UX / Niche</h4>
+                                <p class="mt-2 text-sm text-slate-400">Local Pharmacy Apps</p>
+                            </div>
+                            <div class="p-6 text-center">
+                                <h4 class="font-bold text-slate-500">Poor UX / Integrated</h4>
+                                <p class="mt-2 text-sm text-slate-400">Government Health Portals</p>
+                            </div>
+                            <div class="p-6 text-center">
+                                <h4 class="font-bold text-slate-500">Excellent UX / Niche</h4>
+                                <p class="mt-2 text-sm text-slate-400">Practo, 1mg</p>
+                            </div>
+                            <div class="p-6 bg-blue-50 rounded-br-xl rounded-tl-xl text-center border-2 border-blue-500">
+                                <h4 class="font-bold text-blue-600">Excellent UX / Integrated</h4>
+                                <p class="mt-2 text-lg font-extrabold">MediCare Connect</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 8: Traction & Roadmap -->
+            <section class="py-20 md:py-32">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Traction & Roadmap</h2>
+                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Our Journey and What's Next</p>
+                    </div>
+                    <div class="mt-16 relative">
+                        <div class="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-slate-200" aria-hidden="true"></div>
+                        <div class="space-y-16">
+                            <div class="relative flex items-start">
+                                <div class="w-1/2 pr-8 text-right">
+                                    <p class="text-lg font-bold text-blue-600">Product Launch</p>
+                                    <p class="mt-1 text-slate-600">Successfully launched a fully-functional MVP with medicine, doctor, and ambulance finders.</p>
+                                </div>
+                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full border-4 border-slate-50 flex items-center justify-center text-white font-bold">✓</div>
+                                <div class="w-1/2 pl-8"></div>
+                            </div>
+                             <div class="relative flex items-start">
+                                <div class="w-1/2 pr-8"></div>
+                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full border-4 border-slate-50 flex items-center justify-center text-white font-bold">✓</div>
+                                <div class="w-1/2 pl-8 text-left">
+                                    <p class="text-lg font-bold text-blue-600">Pilot Program</p>
+                                    <p class="mt-1 text-slate-600">Onboarded 1000+ doctors and 500+ pharmacies in our pilot city, Kothri Kalan, with positive user feedback.</p>
+                                </div>
+                            </div>
+                             <div class="relative flex items-start">
+                                <div class="w-1/2 pr-8 text-right">
+                                    <p class="text-lg font-bold text-slate-800">Q4 2025</p>
+                                    <p class="mt-1 text-slate-600">Secure seed funding and expand operations to 3 major Tier-2 cities.</p>
+                                </div>
+                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
+                                <div class="w-1/2 pl-8"></div>
+                            </div>
+                             <div class="relative flex items-start">
+                                <div class="w-1/2 pr-8"></div>
+                                <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-400 rounded-full border-4 border-slate-50"></div>
+                                <div class="w-1/2 pl-8 text-left">
+                                    <p class="text-lg font-bold text-slate-800">Q2 2026</p>
+                                    <p class="mt-1 text-slate-600">Launch native iOS & Android apps and introduce premium B2C subscription features.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Financials Section Group -->
+        <div id="financials" class="section">
+            <!-- Slide 10: Financial Projections -->
+            <section class="py-20 md:py-32 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                        <div class="mb-12 lg:mb-0">
+                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">Financials</h2>
+                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">A Clear Path to Profitability</p>
+                            <p class="mt-6 text-xl text-slate-600">
+                                Our financial model is built on conservative estimates for user acquisition and a multi-pronged revenue strategy. We project strong growth as we expand our footprint and user base, leading to break-even within three years.
+                            </p>
+                            <div class="mt-8 space-y-4">
+                                <p><span class="font-bold">Year 1:</span> Focus on user acquisition, achieve 100k MAU.</p>
+                                <p><span class="font-bold">Year 2:</span> Scale B2B subscriptions, achieve 500k MAU.</p>
+                                <p><span class="font-bold">Year 3:</span> Reach 1.5M MAU and achieve break-even.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-center font-bold text-slate-700 mb-2">Projected Revenue Growth (in ₹ Crores)</p>
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 11: The Ask -->
+            <section class="py-20 md:py-32">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                        <div class="mb-12 lg:mb-0 lg:order-2">
+                            <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Ask</h2>
+                            <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Join Us in Building the Future of Healthcare</p>
+                            <p class="mt-6 text-xl text-slate-600">
+                                We are seeking <span class="font-black text-blue-600">₹1.5 Crore</span> in seed funding to accelerate our growth and product development. This investment provides an 18-month runway to achieve our next major milestone of 100,000 active users.
+                            </p>
+                        </div>
+                        <div class="lg:order-1">
+                            <p class="text-center font-bold text-slate-700 mb-2">Allocation of Funds</p>
+                            <div class="chart-container max-w-sm">
+                                <canvas id="askChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Contact Section Group -->
+        <div id="contact" class="section">
+            <!-- Slide 9: The Team -->
+            <section class="py-20 md:py-32 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-base font-semibold text-blue-600 tracking-wider uppercase">The Team</h2>
+                        <p class="mt-2 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">The Team Behind MediCare Connect</p>
+                        <p class="mt-6 max-w-3xl mx-auto text-xl text-slate-600">
+                           A balanced team with expertise across technology, design, and strategy, passionate about solving real-world healthcare problems.
+                        </p>
+                    </div>
+                    <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">SS</span></div>
+                            <h3 class="mt-4 text-lg font-bold">Sayyed Saifullah</h3>
+                            <p class="text-blue-600 font-medium">Project Lead & Backend</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">BV</span></div>
+                            <h3 class="mt-4 text-lg font-bold">Bhumika Verma</h3>
+                            <p class="text-blue-600 font-medium">Frontend & UI/UX</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">AG</span></div>
+                            <h3 class="mt-4 text-lg font-bold">Abhinav Gomra</h3>
+                            <p class="text-blue-600 font-medium">Full-Stack & Database</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">AC</span></div>
+                            <h3 class="mt-4 text-lg font-bold">Anuj Chauhan</h3>
+                            <p class="text-blue-600 font-medium">Product & Integration</p>
+                        </div>
+                         <div class="text-center">
+                            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto flex items-center justify-center"><span class="text-4xl text-slate-400">YI</span></div>
+                            <h3 class="mt-4 text-lg font-bold">Yashashvi Indulkar</h3>
+                            <p class="text-blue-600 font-medium">Business Strategy</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold">Let's Build a Healthier Future, Together.</h2>
+            <p class="mt-4 text-lg text-slate-300">Thank you for considering MediCare Connect.</p>
+            <div class="mt-6">
+                <p class="font-bold">Contact:</p>
+                <p class="text-slate-300">contact@medicare-connect.com</p>
+                <p class="text-slate-300">www.medicare-connect.com (example)</p>
+            </div>
+            <p class="mt-8 text-sm text-slate-400">&copy; 2025 MediCare Connect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Header shadow on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                } else {
+                    header.classList.remove('shadow-md');
+                }
+            });
+
+            // Chart.js implementation
+            const createChart = (ctx, config) => {
+                const chart = new Chart(ctx, config);
+                return chart;
+            };
+            
+            const chartConfigs = {
+                marketChart: {
+                    type: 'bar',
+                    data: {
+                        labels: ['2023', '2025', '2027', '2030'],
+                        datasets: [{
+                            label: 'Market Size ($ Billion)',
+                            data: [12, 18, 27, 37],
+                            backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => $${context.raw} Billion
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, title: { display: true, text: 'Market Size ($B)' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                },
+                revenueChart: {
+                    type: 'bar',
+                    data: {
+                        labels: ['Year 1', 'Year 2', 'Year 3'],
+                        datasets: [{
+                            label: 'Revenue (₹ Crores)',
+                            data: [0.5, 3.5, 12],
+                            backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                             tooltip: {
+                                callbacks: {
+                                    label: (context) => ₹${context.raw} Crores
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, title: { display: true, text: 'Revenue (₹Cr)' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                },
+                askChart: {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Product Development', 'Market Expansion', 'Team Growth'],
+                        datasets: [{
+                            data: [40, 35, 25],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.7)',
+                                'rgba(16, 185, 129, 0.7)',
+                                'rgba(107, 114, 128, 0.7)'
+                            ],
+                            borderColor: '#f8fafc',
+                            borderWidth: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => ${context.label}: ${context.raw}%
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4 
+            };
+
+            const chartObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const chartId = entry.target.id;
+                        if (chartConfigs[chartId] && !entry.target.chart) {
+                            const ctx = entry.target.getContext('2d');
+                            entry.target.chart = createChart(ctx, chartConfigs[chartId]);
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            Object.keys(chartConfigs).forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    chartObserver.observe(canvas);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
