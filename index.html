@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Cool Blues & Neutral Grays -->
-    <!-- Application Structure Plan: A single-page, vertical scrolling narrative that transforms the pitch deck into an interactive story. A fixed top navigation allows investors to jump to key sections (The Pitch, The Model, Execution, Financials), supporting both linear and non-linear exploration. This structure is more engaging than a traditional slide deck and provides a modern, web-native experience. Interactive charts and hover effects are used to make data more digestible and highlight key information, improving comprehension and retention. -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling narrative that transforms the pitch deck into an interactive story. A fixed top navigation allows investors to jump to key sections (The Pitch, The Model, Execution, Project Details), supporting both linear and non-linear exploration. This structure is more engaging than a traditional slide deck and provides a modern, web-native experience. Interactive charts and hover effects are used to make data more digestible and highlight key information, improving comprehension and retention. -->
     <!-- Visualization & Content Choices: 
         - Market Opportunity (Slide 5): Goal: Show significant growth. Viz: Animated Bar Chart (Chart.js). Interaction: Animate on scroll-in to create impact. Justification: A bar chart is ideal for showing change over time.
         - Business Model (Slide 6): Goal: Explain revenue streams. Viz: Interactive Cards (HTML/CSS). Interaction: Hover to reveal details. Justification: Encourages exploration without cluttering the UI.
@@ -471,7 +471,7 @@
                             legend: { display: false },
                             tooltip: {
                                 callbacks: {
-                                    label: (context) => $${context.raw} Billion
+                                    label: (context) => `$${context.raw} Billion`
                                 }
                             }
                         },
@@ -501,7 +501,7 @@
                             legend: { display: false },
                              tooltip: {
                                 callbacks: {
-                                    label: (context) => ₹${context.raw} Crores
+                                    label: (context) => `₹${context.raw} Crores`
                                 }
                             }
                         },
