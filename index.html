@@ -2,966 +2,1059 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediCare Connect: Project Report</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- UPDATED: Using a newer, more compatible version of Mermaid.js -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Connect: Project Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- UPDATED: Using a newer, more compatible version of Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
-      /* slate-50 */
-      color: #1e293b;
-      /* slate-800 */
-    }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            /* slate-50 */
+            color: #1e293b;
+            /* slate-800 */
+        }
 
-    .section {
-      scroll-margin-top: 80px;
-    }
+        .section {
+            scroll-margin-top: 80px;
+        }
 
-    .chart-container {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      height: 400px;
-      max-height: 500px;
-    }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
 
-    .doughnut-chart-container {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      height: 400px;
-      max-height: 400px;
-    }
+        .doughnut-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 400px;
+        }
 
-    @media (min-width: 768px) {
-      .chart-container {
-        height: 500px;
-      }
-    }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
 
-    .glassmorphism {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
-    }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+        }
 
-    .gantt-bar {
-      background-color: #3b82f6;
-      /* blue-500 */
-      border-radius: 4px;
-      height: 20px;
-    }
+        .gantt-bar {
+            background-color: #3b82f6;
+            /* blue-500 */
+            border-radius: 4px;
+            height: 20px;
+        }
 
-    .fade-in-section {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
 
-    .fade-in-section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .arch-card {
-      transform-style: preserve-3d;
-      transition: all 0.3s ease;
-    }
+        .arch-card {
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
 
-    .arch-card:hover {
-      transform: translateY(-5px) scale(1.02);
-    }
+        .arch-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
 
-    .mermaid {
-      /* Styles for the mermaid diagram container */
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      border: 1px solid #e5e7eb;
-    }
-  </style>
+        .mermaid {
+            /* Styles for the mermaid diagram container */
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid #e5e7eb;
+        }
+    </style>
 </head>
 
 <body class="antialiased">
 
-  <!-- Header & Navigation -->
-  <header id="header" class="glassmorphism fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        <div class="flex items-center space-x-3">
-          <div
-            class="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
-            M
-          </div>
-          <span
-            class="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">MediCare
-            Connect</span>
-        </div>
-        <nav class="hidden md:flex items-center space-x-5">
-          <a href="#team" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">The Team</a>
-          <a href="#intro"
-            class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Introduction</a>
-          <a href="#design" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">System
-            Design</a>
-          <a href="#architecture"
-            class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Architecture</a>
-          <a href="#booking-flow"
-            class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Booking Flow</a>
-          <a href="#modules"
-            class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Modules</a>
-          <a href="#timeline"
-            class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Timeline</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- Title Section -->
-    <section class="pt-32 pb-20 bg-slate-100">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">
-          MediCare Connect
-        </h1>
-        <p class="mt-4 text-xl md:text-2xl text-slate-600">
-          An Integrated Digital Platform for Seamless Healthcare Access
-        </p>
-      </div>
-    </section>
-
-    <!-- The Team -->
-    <section id="team" class="section py-20 md:py-28 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">The Team</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <p class="mt-4 text-lg text-slate-600 text-center max-w-2xl mx-auto">A balanced team with expertise across
-          technology, design, and strategy.</p>
-        <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div
-              class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
-              SS</div>
-            <h3 class="mt-4 text-lg font-bold text-slate-800">Sayyed Saifullah</h3>
-            <p class="text-blue-600 font-medium">Project Lead & Backend</p>
-          </div>
-          <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div
-              class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
-              BV</div>
-            <h3 class="mt-4 text-lg font-bold text-slate-800">Bhumika Verma</h3>
-            <p class="text-blue-600 font-medium">Frontend & UI/UX</p>
-          </div>
-          <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div
-              class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
-              AG</div>
-            <h3 class="mt-4 text-lg font-bold text-slate-800">Abhinav Gomra</h3>
-            <p class="text-blue-600 font-medium">Full-Stack & Database</p>
-          </div>
-          <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div
-              class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
-              AC</div>
-            <h3 class="mt-4 text-lg font-bold text-slate-800">Anuj Chauhan</h3>
-            <p class="text-blue-600 font-medium">Product & Integration</p>
-          </div>
-          <div class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div
-              class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
-              YI</div>
-            <h3 class="mt-4 text-lg font-bold text-slate-800">Yashashvi Indulkar</h3>
-            <p class="text-blue-600 font-medium">Business Strategy</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Introduction & Problem Statement -->
-    <section id="intro" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        <div>
-          <div class="relative text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Introduction</h2>
-            <div
-              class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+    <!-- Header & Navigation -->
+    <header id="header" class="glassmorphism fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
+                        M
+                    </div>
+                    <span
+                        class="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">MediCare
+                        Connect</span>
+                </div>
+                <nav class="hidden md:flex items-center space-x-5">
+                    <a href="#team" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">The
+                        Team</a>
+                    <a href="#intro"
+                        class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Introduction</a>
+                    <a href="#design"
+                        class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">System
+                        Design</a>
+                    <a href="#architecture"
+                        class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Architecture</a>
+                    <a href="#booking-flow"
+                        class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Flow Chart</a>
+                    <a href="#modules"
+                        class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Modules</a>
+                    <a href="#timeline"
+                        class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Timeline</a>
+                </nav>
             </div>
-          </div>
-          <div class="space-y-6 text-lg text-slate-700 leading-relaxed">
-            <p>The Indian healthcare ecosystem is vast and complex. With over 500 million smartphone users, citizens now
-              expect the same level of digital convenience in healthcare as they experience in e-commerce and banking.
-              However, a significant gap exists as healthcare services remain largely fragmented, forcing patients to
-              navigate multiple, disconnected platforms and offline processes.</p>
-            <p>To address these challenges, we have developed MediCare Connect, a comprehensive, user-centric web
-              application designed to be an all-in-one solution for personal healthcare management. Our platform
-              integrates a wide array of services—from finding doctors and medicines to symptom checking, telemedicine,
-              and accessing government aid schemes—all through a single, intuitive interface.</p>
-          </div>
         </div>
-        <div>
-          <div class="relative text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Problem Statement & Objectives
-            </h2>
-            <div
-              class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+    </header>
+
+    <main>
+        <!-- Title Section -->
+        <section class="pt-32 pb-20 bg-slate-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">
+                    MediCare Connect
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-slate-600">
+                    An Integrated Digital Platform for Seamless Healthcare Access
+                </p>
             </div>
-          </div>
-          <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
-            <blockquote class="text-xl text-slate-800 italic border-l-4 border-blue-500 pl-6">
-              "The process of accessing healthcare services in India is highly fragmented and inefficient. Patients face
-              significant challenges in finding reliable information about doctors and medicines, booking appointments,
-              managing health records, and understanding their symptoms, leading to delayed care, increased costs, and
-              significant anxiety."
-            </blockquote>
-            <h3 class="text-xl font-semibold mt-8 mb-4">Project Objectives:</h3>
-            <ol class="list-decimal list-inside space-y-2 text-lg text-slate-700">
-              <li>To design and develop a centralized platform that integrates a wide array of healthcare services.</li>
-              <li>To empower users with tools for symptom assessment and access to telemedicine.</li>
-              <li>To create a simple, intuitive, and responsive user interface for a broad demographic.</li>
-              <li>To build a scalable and secure architecture using modern web technologies like React and Tailwind CSS.
-              </li>
-            </ol>
-          </div>
+        </section>
+
+        <!-- The Team -->
+        <section id="team" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">The Team</h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <p class="mt-4 text-lg text-slate-600 text-center max-w-2xl mx-auto">A balanced team with expertise
+                    across
+                    technology, design, and strategy.</p>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    <div
+                        class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div
+                            class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
+                            SS</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Sayyed Saifullah</h3>
+                        <p class="text-blue-600 font-medium">Project Lead & Backend</p>
+                    </div>
+                    <div
+                        class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div
+                            class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
+                            BV</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Bhumika Verma</h3>
+                        <p class="text-blue-600 font-medium">Frontend & UI/UX</p>
+                    </div>
+                    <div
+                        class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div
+                            class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
+                            AG</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Abhinav Gomra</h3>
+                        <p class="text-blue-600 font-medium">Full-Stack & Database</p>
+                    </div>
+                    <div
+                        class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div
+                            class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
+                            AC</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Anuj Chauhan</h3>
+                        <p class="text-blue-600 font-medium">Product & Integration</p>
+                    </div>
+                    <div
+                        class="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div
+                            class="w-32 h-32 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full mx-auto flex items-center justify-center text-4xl font-bold text-slate-600">
+                            YI</div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Yashashvi Indulkar</h3>
+                        <p class="text-blue-600 font-medium">Business Strategy</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction & Problem Statement -->
+        <section id="intro" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                <div>
+                    <div class="relative text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Introduction</h2>
+                        <div
+                            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                        </div>
+                    </div>
+                    <div class="space-y-6 text-lg text-slate-700 leading-relaxed">
+                        <p>The Indian healthcare ecosystem is vast and complex. With over 500 million smartphone users,
+                            citizens now
+                            expect the same level of digital convenience in healthcare as they experience in e-commerce
+                            and banking.
+                            However, a significant gap exists as healthcare services remain largely fragmented, forcing
+                            patients to
+                            navigate multiple, disconnected platforms and offline processes.</p>
+                        <p>To address these challenges, we have developed MediCare Connect, a comprehensive,
+                            user-centric web
+                            application designed to be an all-in-one solution for personal healthcare management. Our
+                            platform
+                            integrates a wide array of services—from finding doctors and medicines to symptom checking,
+                            telemedicine,
+                            and accessing government aid schemes—all through a single, intuitive interface.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="relative text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Problem Statement &
+                            Objectives
+                        </h2>
+                        <div
+                            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <blockquote class="text-xl text-slate-800 italic border-l-4 border-blue-500 pl-6">
+                            "The process of accessing healthcare services in India is highly fragmented and inefficient.
+                            Patients face
+                            significant challenges in finding reliable information about doctors and medicines, booking
+                            appointments,
+                            managing health records, and understanding their symptoms, leading to delayed care,
+                            increased costs, and
+                            significant anxiety."
+                        </blockquote>
+                        <h3 class="text-xl font-semibold mt-8 mb-4">Project Objectives:</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-lg text-slate-700">
+                            <li>To design and develop a centralized platform that integrates a wide array of healthcare
+                                services.</li>
+                            <li>To empower users with tools for symptom assessment and access to telemedicine.</li>
+                            <li>To create a simple, intuitive, and responsive user interface for a broad demographic.
+                            </li>
+                            <li>To build a scalable and secure architecture using modern web technologies like React and
+                                Tailwind CSS.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proposed Work -->
+        <section id="proposed-work" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Core Application
+                        Features</h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-lg text-slate-700 leading-relaxed">MediCare Connect is a comprehensive
+                            Single-Page
+                            Application (SPA) built with React. It unifies a wide range of healthcare functionalities,
+                            moving beyond
+                            basic services to create a holistic health management tool. The platform is designed to be a
+                            single point
+                            of contact for all of a user's healthcare needs.</p>
+                        <ul class="mt-6 space-y-4 text-lg">
+                            <li class="flex items-start"><span
+                                    class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
+                                        class="fas fa-pills"></i></span><span>Medicines & Doctors: Core modules for
+                                    finding specialists
+                                    and pharmacies.</span></li>
+                            <li class="flex items-start"><span
+                                    class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
+                                        class="fas fa-first-aid"></i></span><span>Emergency Services: A dedicated,
+                                    high-priority module
+                                    for booking emergency transport.</span></li>
+                            <li class="flex items-start"><span
+                                    class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
+                                        class="fas fa-diagnoses"></i></span><span>Health Tools: Includes a Symptom
+                                    Checker, Telemedicine
+                                    consultations, and Lab Test booking.</span></li>
+                            <li class="flex items-start"><span
+                                    class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
+                                        class="fas fa-landmark"></i></span><span>Information Hub: Provides access to
+                                    Government Aid
+                                    schemes and personal Health Records.</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6">Feature Distribution</h3>
+                        <div class="doughnut-chart-container">
+                            <canvas id="proposedWorkChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Design -->
+        <section id="design" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">System Design</h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Literature Review -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6">Competitive Analysis</h3>
+                        <p class="text-lg text-slate-700 mb-6">We analyzed existing platforms like Practo and 1mg. While
+                            they excel
+                            in specific verticals (e.g., appointments or medicines), they lack the broad, integrated
+                            feature set of
+                            MediCare Connect, particularly in areas like symptom checking and government aid
+                            information.</p>
+                        <div class="chart-container bg-white p-4 rounded-xl shadow-md border border-slate-200">
+                            <canvas id="featureChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- System Architecture -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6">Interactive System Architecture</h3>
+                        <p class="text-lg text-slate-700 mb-6">Our project follows a modern Client-Server Architecture.
+                            Hover over a
+                            component below to see its detailed responsibilities and the technologies used.</p>
+                        <div id="architecture-diagram"
+                            class="bg-white p-8 rounded-xl shadow-md border border-slate-200 space-y-4">
+                            <div id="arch-client"
+                                class="arch-card p-4 bg-blue-100 border-2 border-blue-300 rounded-lg text-center cursor-pointer">
+                                <p class="font-bold text-blue-800">Client-Side (Frontend)</p>
+                            </div>
+                            <div class="text-center font-bold text-2xl text-slate-400">↓↑ <span
+                                    class="text-sm font-medium text-slate-500 align-middle">API Calls (HTTP/S)</span>
+                            </div>
+                            <div id="arch-server"
+                                class="arch-card p-4 bg-green-100 border-2 border-green-300 rounded-lg text-center cursor-pointer">
+                                <p class="font-bold text-green-800">Server-Side (Backend)</p>
+                            </div>
+                            <div class="text-center font-bold text-2xl text-slate-400">↓↑ <span
+                                    class="text-sm font-medium text-slate-500 align-middle">DB Queries (SQL)</span>
+                            </div>
+                            <div id="arch-db"
+                                class="arch-card p-4 bg-purple-100 border-2 border-purple-300 rounded-lg text-center cursor-pointer">
+                                <p class="font-bold text-purple-800">Database</p>
+                            </div>
+                            <div id="arch-details"
+                                class="mt-6 p-4 bg-slate-50 rounded-lg min-h-[120px] text-slate-700 transition-opacity duration-300 flex items-center justify-center text-center">
+                                Hover over a component to see details.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Architecture Diagram -->
+        <section id="architecture" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Project Architecture
+                    </h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <p class="mt-4 text-lg text-slate-600 text-center max-w-3xl mx-auto">This diagram illustrates the
+                    high-level
+                    architecture of MediCare Connect, showing the flow of information from the user to the various
+                    backend
+                    services and external APIs.</p>
+                <div class="mt-12 overflow-x-auto">
+                    <div class="mermaid min-w-[1000px]">
+                        graph LR
+                        %% -- DEFINE NODES & GROUPS --
+
+                        subgraph "User & Frontend"
+                        User(["<i class='fa fa-user'></i> User"]);
+                        subgraph "Vercel Cloud"
+                        Frontend["<i class='fab fa-react'></i> Next.js Frontend"];
+                        end
+                        end
+
+                        subgraph "AWS Cloud Infrastructure"
+                        APIGateway["<i class='fa fa-network-wired'></i> API Gateway"];
+
+                        subgraph "Microservices (AWS ECS/EKS)"
+                        direction LR
+                        UserService["<i class='fa fa-users-cog'></i> User Service"];
+                        DoctorService["<i class='fa fa-stethoscope'></i> Doctor Service"];
+                        AppointmentService["<i class='fa fa-calendar-check'></i> Appointment Service"];
+                        NotificationService["<i class='fa fa-bell'></i> Notification Service"];
+                        end
+
+                        subgraph "Data Layer"
+                        direction LR
+                        PostgreSQL["<i class='fa fa-database'></i> PostgreSQL (RDS)"];
+                        Elasticsearch["<i class='fa fa-search'></i> Elasticsearch (OpenSearch)"];
+                        end
+                        end
+
+                        subgraph "External Services"
+                        direction LR
+                        Auth["<i class='fa fa-shield-alt'></i> Auth0 / Cognito"];
+                        subgraph "3rd Party APIs"
+                        GoogleMaps["<i class='fa fa-map-marker-alt'></i> Google Maps API"];
+                        Twilio["<i class='fa fa-comment-dots'></i> Twilio API"];
+                        Agora["<i class='fa fa-video'></i> Agora / Twilio Video"];
+                        end
+                        end
+
+                        %% -- DEFINE CONNECTIONS --
+
+                        %% 1. User Authentication Flow
+                        User -- "Interacts with App" --> Frontend;
+                        Frontend -- "HTTPS: Login/Signup" --> Auth;
+                        Auth -- "Returns JWT" --> Frontend;
+
+                        %% 2. Main API Request Flow
+                        Frontend -- "API Requests with JWT" --> APIGateway;
+                        APIGateway -- "Routes to" --> UserService;
+                        APIGateway -- "Routes to" --> DoctorService;
+                        APIGateway -- "Routes to" --> AppointmentService;
+
+                        %% 3. Service to Database Connections
+                        UserService & DoctorService & AppointmentService -- "SQL Connection" --> PostgreSQL;
+                        DoctorService -- "Search Query" --> Elasticsearch;
+                        PostgreSQL -.->|"Data Sync Pipeline"| Elasticsearch;
+
+                        %% 4. Inter-service & 3rd Party API Calls
+                        AppointmentService -- "Publishes Event" --> NotificationService;
+                        NotificationService -- "API Call" --> Twilio & Agora;
+                        DoctorService -- "API Call" --> GoogleMaps;
+
+                        %% -- STYLING --
+                        style User fill:#f9f9f9,stroke:#333,stroke-width:2px,color:#333
+                        style Frontend fill:#00A8E8,stroke:#fff,stroke-width:2px,color:#fff
+                        style Auth fill:#6A0DAD,stroke:#fff,stroke-width:2px,color:#fff
+                        style APIGateway fill:#FF9900,stroke:#fff,stroke-width:2px,color:#fff
+                        style UserService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
+                        style DoctorService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
+                        style AppointmentService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
+                        style NotificationService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
+                        style PostgreSQL fill:#2ECC71,stroke:#fff,stroke-width:2px,color:#fff
+                        style Elasticsearch fill:#2ECC71,stroke:#fff,stroke-width:2px,color:#fff
+                        style GoogleMaps fill:#DB4437,stroke:#fff,stroke-width:2px,color:#fff
+                        style Twilio fill:#F22F46,stroke:#fff,stroke-width:2px,color:#fff
+                        style Agora fill:#099DFD,stroke:#fff,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Flow: Booking an Appointment -->
+        <section id="booking-flow" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Flow Chart
+                    </h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <p class="mt-4 text-lg text-slate-600 text-center max-w-3xl mx-auto">To illustrate a core user journey,
+                    this
+                    flowchart details the sequence of events when a user books an appointment, from the initial click to
+                    the
+                    asynchronous notifications.</p>
+                <div class="mt-12 overflow-x-auto">
+                    <div class="mermaid min-w-[800px]">
+                        graph TD
+                        %% -- CLASS DEFINITIONS FOR A CLEANER LOOK --
+                        classDef frontend fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#1565C0
+                        classDef backend fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#333
+                        classDef decision fill:#E0F7FA,stroke:#006064,stroke-width:2px
+                        classDef database fill:#E8F5E9,stroke:#1B5E20,stroke-width:2px,color:#1B5E20
+                        classDef event fill:#F3E5F5,stroke:#4A148C,stroke-width:2px,color:#4A148C
+                        classDef success fill:#4CAF50,stroke:#2E7D32,color:white,stroke-width:2px
+                        classDef error fill:#F44336,stroke:#C62828,color:white,stroke-width:2px
+
+                        %% -- NODES & GROUPS --
+                        subgraph "User's Browser (Frontend)"
+                        A["<i class='fa fa-user-md'></i> Start: User on Doctor's Profile"];
+                        B{"<i class='fa fa-mouse-pointer'></i> User clicks 'Book Now'"};
+                        C["<i class='fa fa-paper-plane'></i> Send API Request w/ JWT"];
+                        ApiResponse{"<i class='fa fa-exchange-alt'></i> API Response Received"};
+                        M["<i class='fa fa-check-circle'></i> Display 'Booking Successful!'"];
+                        N["<i class='fa fa-times-circle'></i> Display Error Message"];
+                        end
+
+                        subgraph "AWS Backend"
+                        D["<i class='fa fa-network-wired'></i> API Gateway Receives Request"];
+                        E{"<i class='fa fa-shield-alt'></i> Auth Middleware: Is JWT Valid?"};
+                        F["<i class='fa fa-cogs'></i> Appointment Service Receives Request"];
+                        G["<i class='fa fa-search'></i> Query PostgreSQL for availability"];
+                        H{"<i class='fa fa-question-circle'></i> Is slot available?"};
+                        I[("<i class='fa fa-database'></i> 1. Create 'pending' appointment")];
+                        SuccessResponse["<i class='fa fa-thumbs-up'></i> 2. Return '201 Created' Response"];
+                        ErrorResponse["<i class='fa fa-exclamation-triangle'></i> Return Error (e.g. 401, 409)"];
+
+                        subgraph "Async Events (Decoupled)"
+                        J["<i class='fa fa-bullhorn'></i> 3. Publish 'APPOINTMENT_REQUESTED' Event"];
+                        NotificationService["<i class='fa fa-bell'></i> Notification Service Listens"];
+                        K["<i class='fa fa-comment-dots'></i> Send SMS to Patient via Twilio"];
+                        L["<i class='fa fa-broadcast-tower'></i> Push WebSocket to Doctor"];
+                        end
+                        end
+
+                        %% -- CONNECTIONS --
+                        A --> B --> C --> D;
+                        D --> E;
+                        E -- "Yes" --> F;
+                        F --> G --> H;
+                        H -- "Yes" --> I;
+                        I --> SuccessResponse;
+                        SuccessResponse --> ApiResponse;
+                        ApiResponse -- "Success (201)" --> M;
+
+                        E -- "No" --> ErrorResponse;
+                        H -- "No" --> ErrorResponse;
+                        ErrorResponse --> ApiResponse;
+                        ApiResponse -- "Failure" --> N;
+
+                        I -.->|"Triggers"| J;
+                        J -.-> NotificationService;
+                        NotificationService --> K & L;
+
+                        %% -- APPLYING STYLES USING CLASS DEFINITIONS --
+                        class A,B,C,ApiResponse frontend
+                        class D,E,F,G,H,SuccessResponse,ErrorResponse backend
+                        class B,E,H,ApiResponse decision
+                        class I,G database
+                        class J,NotificationService,K,L event
+                        class M success
+                        class N error
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modules & Requirements -->
+        <section id="modules" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Modules & Requirements
+                    </h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-semibold text-center mb-8">Key Features Explained</h3>
+                    <p class="text-lg text-slate-600 text-center max-w-3xl mx-auto mb-12">The application offers a rich
+                        set of
+                        features, each addressing a specific healthcare need:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">💊 Find Medicine</h4>
+                            <p class="text-slate-600">Users can search for specific medicines and view their real-time
+                                availability in
+                                nearby pharmacies. This feature is designed to help users quickly locate and procure
+                                necessary
+                                medications.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">👨‍⚕️ Find Doctor</h4>
+                            <p class="text-slate-600">This module allows users to search for and connect with qualified
+                                medical
+                                specialists. Users can filter doctors by location, specialty, and even symptoms, and
+                                then proceed to
+                                book simulated appointments.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">🚑 Emergency Ambulance</h4>
+                            <p class="text-slate-600">Provides immediate access to emergency ambulance services. The
+                                interface allows
+                                for quick emergency calls and also facilitates planned medical transport by searching
+                                for available
+                                ambulances in specific cities.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">💻 Telemedicine</h4>
+                            <p class="text-slate-600">Offers convenient virtual consultations, enabling users to connect
+                                with
+                                healthcare professionals via video calls or chat from the comfort of their homes.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">🤝 Government Aid Schemes</h4>
+                            <p class="text-slate-600">Users can input their demographic and income details to check
+                                their eligibility
+                                for various government-sponsored healthcare schemes, helping them access financial
+                                assistance for
+                                medical treatments.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">📄 Prescription Scan</h4>
+                            <p class="text-slate-600">This innovative feature allows users to upload an image of their
+                                prescription.
+                                The application then simulates extracting medicine names from the prescription and helps
+                                find nearby
+                                pharmacies that stock those medicines.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">❤ NGOs & Charities</h4>
+                            <p class="text-slate-600">Users can discover local Non-Governmental Organizations (NGOs) and
+                                charities
+                                that provide financial support for medical treatments by searching based on state and
+                                city.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">📦 Order Tracking</h4>
+                            <p class="text-slate-600">For medicines ordered through the platform (after a simulated
+                                checkout), users
+                                can track the real-time status of their deliveries, from processing to shipment and
+                                final delivery.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">🤔 Symptom Checker</h4>
+                            <p class="text-slate-600">An AI-powered tool where users can input their symptoms to receive
+                                simulated
+                                preliminary insights into potential conditions and recommended next steps. This feature
+                                is for
+                                informational purposes only.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">⏰ Health Reminders</h4>
+                            <p class="text-slate-600">Enables users to set personalized reminders for medication
+                                schedules,
+                                appointments, vaccination due dates, and general health check-ups.</p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">🗂 Health Records</h4>
+                            <p class="text-slate-600">A secure section for users to manage their personal medical
+                                history, including
+                                uploading and viewing lab reports and prescriptions. Users can also simulate securely
+                                sharing their
+                                records.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16">
+                    <h3 class="text-2xl font-semibold text-center mb-8">Requirements</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                            <h3 class="text-2xl font-semibold mb-4">Software Requirements</h3>
+                            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+                                <li><span class="font-semibold">Core Framework:</span> React.js</li>
+                                <li><span class="font-semibold">Routing:</span> Wouter</li>
+                                <li><span class="font-semibold">Styling:</span> Tailwind CSS with custom themes</li>
+                                <li><span class="font-semibold">UI Components:</span> Shadcn/UI (Toaster, Tooltip)</li>
+                                <li><span class="font-semibold">Data Fetching:</span> TanStack React Query</li>
+                                <li><span class="font-semibold">State Management:</span> React Context (CartProvider)
+                                </li>
+                                <li><span class="font-semibold">Browser Support:</span> Modern evergreen browsers</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                            <h3 class="text-2xl font-semibold mb-4">Hardware Requirements</h3>
+                            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+                                <li><span class="font-semibold">User End:</span> Any modern device (PC, smartphone) with
+                                    an internet
+                                    connection.</li>
+                                <li>No specialized hardware required.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-Time Usage -->
+        <section id="real-time-usage" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Real-Time Usage
+                        Scenarios</h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <div class="mt-12 space-y-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
+                        <div class="text-5xl flex-shrink-0">🤔</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700">A User with Mild Symptoms</h3>
+                            <p class="mt-2 text-lg text-slate-600">A user feels unwell but is unsure if they need a
+                                doctor. They use
+                                the **Symptom Checker**, which suggests it might be a common cold but recommends a
+                                Telemedicine call for
+                                confirmation. They book a quick video call directly through the app.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
+                        <div class="text-5xl flex-shrink-0">👵</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700">An Elderly Citizen</h3>
+                            <p class="mt-2 text-lg text-slate-600">An elderly person wants to know if they are eligible
+                                for the
+                                Ayushman Bharat scheme. They navigate to the **Government Aid** section, find clear
+                                information, and
+                                then use the **Health Records** module to gather the required documents.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
+                        <div class="text-5xl flex-shrink-0">🚨</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700">An Emergency Situation</h3>
+                            <p class="mt-2 text-lg text-slate-600">A person witnesses an accident. They use the
+                                **Emergency** feature
+                                to quickly dispatch an ambulance to their current location, providing critical,
+                                time-sensitive
+                                assistance while also finding the nearest hospital with an ER.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section id="timeline" class="section py-20 md:py-28 fade-in-section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Project Timeline</h2>
+                    <div
+                        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+                    </div>
+                </div>
+                <p class="mt-4 text-lg text-slate-600 text-center">This project was executed over a 7-week period,
+                    following a
+                    structured plan from conception to deployment.</p>
+                <div class="mt-12 bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+                    <table class="w-full border-collapse text-sm md:text-base min-w-[600px]">
+                        <thead>
+                            <tr class="border-b-2 border-slate-200">
+                                <th class="p-2 text-left font-semibold w-1/3">Phase / Task</th>
+                                <th class="p-2 text-center font-semibold">Week 1</th>
+                                <th class="p-2 text-center font-semibold">Week 2</th>
+                                <th class="p-2 text-center font-semibold">Week 3</th>
+                                <th class="p-2 text-center font-semibold">Week 4</th>
+                                <th class="p-2 text-center font-semibold">Week 5</th>
+                                <th class="p-2 text-center font-semibold">Week 6</th>
+                                <th class="p-2 text-center font-semibold">Week 7</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Requirement Analysis & System Design</td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">UI/UX Wireframing & Prototyping</td>
+                                <td></td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Backend & Database Setup</td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Frontend - Core Modules</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Frontend - Feature Integration</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Unit & Integration Testing</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-2 pl-6">Final Review & Presentation</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    <div class="gantt-bar"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <h3 class="text-xl font-semibold text-center">References</h3>
+            <div class="mt-6 text-center text-slate-300 space-y-1">
+                <p>Digital Health India - A Nasscom Report on the Health Tech Landscape.</p>
+                <p>Practo.com & Tata 1mg - For analysis of existing market solutions.</p>
+                <p>React.js, Tailwind CSS, and Chart.js Official Documentation.</p>
+                <p>"The Design of Everyday Things" by Don Norman - For UI/UX principles.</p>
+            </div>
+            <p class="mt-8 text-sm text-slate-400 text-center">&copy; 2025 MediCare Connect Team. All rights reserved.
+            </p>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <!-- Proposed Work -->
-    <section id="proposed-work" class="section py-20 md:py-28 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Core Application Features</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <p class="text-lg text-slate-700 leading-relaxed">MediCare Connect is a comprehensive Single-Page
-              Application (SPA) built with React. It unifies a wide range of healthcare functionalities, moving beyond
-              basic services to create a holistic health management tool. The platform is designed to be a single point
-              of contact for all of a user's healthcare needs.</p>
-            <ul class="mt-6 space-y-4 text-lg">
-              <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                    class="fas fa-pills"></i></span><span>**Medicines & Doctors:** Core modules for finding specialists
-                  and pharmacies.</span></li>
-              <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                    class="fas fa-first-aid"></i></span><span>**Emergency Services:** A dedicated, high-priority module
-                  for booking emergency transport.</span></li>
-              <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                    class="fas fa-diagnoses"></i></span><span>**Health Tools:** Includes a Symptom Checker, Telemedicine
-                  consultations, and Lab Test booking.</span></li>
-              <li class="flex items-start"><span class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                    class="fas fa-landmark"></i></span><span>**Information Hub:** Provides access to Government Aid
-                  schemes and personal Health Records.</span></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-2xl font-semibold text-center mb-6">Feature Distribution</h3>
-            <div class="doughnut-chart-container">
-              <canvas id="proposedWorkChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- System Design -->
-    <section id="design" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">System Design</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <!-- Literature Review -->
-          <div>
-            <h3 class="text-2xl font-semibold text-center mb-6">Competitive Analysis</h3>
-            <p class="text-lg text-slate-700 mb-6">We analyzed existing platforms like Practo and 1mg. While they excel
-              in specific verticals (e.g., appointments or medicines), they lack the broad, integrated feature set of
-              MediCare Connect, particularly in areas like symptom checking and government aid information.</p>
-            <div class="chart-container bg-white p-4 rounded-xl shadow-md border border-slate-200">
-              <canvas id="featureChart"></canvas>
-            </div>
-          </div>
-          <!-- System Architecture -->
-          <div>
-            <h3 class="text-2xl font-semibold text-center mb-6">Interactive System Architecture</h3>
-            <p class="text-lg text-slate-700 mb-6">Our project follows a modern Client-Server Architecture. Hover over a
-              component below to see its detailed responsibilities and the technologies used.</p>
-            <div id="architecture-diagram" class="bg-white p-8 rounded-xl shadow-md border border-slate-200 space-y-4">
-              <div id="arch-client"
-                class="arch-card p-4 bg-blue-100 border-2 border-blue-300 rounded-lg text-center cursor-pointer">
-                <p class="font-bold text-blue-800">Client-Side (Frontend)</p>
-              </div>
-              <div class="text-center font-bold text-2xl text-slate-400">↓↑ <span
-                  class="text-sm font-medium text-slate-500 align-middle">API Calls (HTTP/S)</span></div>
-              <div id="arch-server"
-                class="arch-card p-4 bg-green-100 border-2 border-green-300 rounded-lg text-center cursor-pointer">
-                <p class="font-bold text-green-800">Server-Side (Backend)</p>
-              </div>
-              <div class="text-center font-bold text-2xl text-slate-400">↓↑ <span
-                  class="text-sm font-medium text-slate-500 align-middle">DB Queries (SQL)</span></div>
-              <div id="arch-db"
-                class="arch-card p-4 bg-purple-100 border-2 border-purple-300 rounded-lg text-center cursor-pointer">
-                <p class="font-bold text-purple-800">Database</p>
-              </div>
-              <div id="arch-details"
-                class="mt-6 p-4 bg-slate-50 rounded-lg min-h-[120px] text-slate-700 transition-opacity duration-300 flex items-center justify-center text-center">
-                Hover over a component to see details.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Project Architecture Diagram -->
-    <section id="architecture" class="section py-20 md:py-28 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Project Architecture</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <p class="mt-4 text-lg text-slate-600 text-center max-w-3xl mx-auto">This diagram illustrates the high-level
-          architecture of MediCare Connect, showing the flow of information from the user to the various backend
-          services and external APIs.</p>
-        <div class="mt-12 overflow-x-auto">
-          <div class="mermaid min-w-[1000px]">
-            graph LR
-            %% -- DEFINE NODES & GROUPS --
-
-            subgraph "User & Frontend"
-            User(["<i class='fa fa-user'></i> User"]);
-            subgraph "Vercel Cloud"
-            Frontend["<i class='fab fa-react'></i> Next.js Frontend"];
-            end
-            end
-
-            subgraph "AWS Cloud Infrastructure"
-            APIGateway["<i class='fa fa-network-wired'></i> API Gateway"];
-
-            subgraph "Microservices (AWS ECS/EKS)"
-            direction LR
-            UserService["<i class='fa fa-users-cog'></i> User Service"];
-            DoctorService["<i class='fa fa-stethoscope'></i> Doctor Service"];
-            AppointmentService["<i class='fa fa-calendar-check'></i> Appointment Service"];
-            NotificationService["<i class='fa fa-bell'></i> Notification Service"];
-            end
-
-            subgraph "Data Layer"
-            direction LR
-            PostgreSQL["<i class='fa fa-database'></i> PostgreSQL (RDS)"];
-            Elasticsearch["<i class='fa fa-search'></i> Elasticsearch (OpenSearch)"];
-            end
-            end
-
-            subgraph "External Services"
-            direction LR
-            Auth["<i class='fa fa-shield-alt'></i> Auth0 / Cognito"];
-            subgraph "3rd Party APIs"
-            GoogleMaps["<i class='fa fa-map-marker-alt'></i> Google Maps API"];
-            Twilio["<i class='fa fa-comment-dots'></i> Twilio API"];
-            Agora["<i class='fa fa-video'></i> Agora / Twilio Video"];
-            end
-            end
-
-            %% -- DEFINE CONNECTIONS --
-
-            %% 1. User Authentication Flow
-            User -- "Interacts with App" --> Frontend;
-            Frontend -- "HTTPS: Login/Signup" --> Auth;
-            Auth -- "Returns JWT" --> Frontend;
-
-            %% 2. Main API Request Flow
-            Frontend -- "API Requests with JWT" --> APIGateway;
-            APIGateway -- "Routes to" --> UserService;
-            APIGateway -- "Routes to" --> DoctorService;
-            APIGateway -- "Routes to" --> AppointmentService;
-
-            %% 3. Service to Database Connections
-            UserService & DoctorService & AppointmentService -- "SQL Connection" --> PostgreSQL;
-            DoctorService -- "Search Query" --> Elasticsearch;
-            PostgreSQL -.->|"Data Sync Pipeline"| Elasticsearch;
-
-            %% 4. Inter-service & 3rd Party API Calls
-            AppointmentService -- "Publishes Event" --> NotificationService;
-            NotificationService -- "API Call" --> Twilio & Agora;
-            DoctorService -- "API Call" --> GoogleMaps;
-
-            %% -- STYLING --
-            style User fill:#f9f9f9,stroke:#333,stroke-width:2px,color:#333
-            style Frontend fill:#00A8E8,stroke:#fff,stroke-width:2px,color:#fff
-            style Auth fill:#6A0DAD,stroke:#fff,stroke-width:2px,color:#fff
-            style APIGateway fill:#FF9900,stroke:#fff,stroke-width:2px,color:#fff
-            style UserService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
-            style DoctorService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
-            style AppointmentService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
-            style NotificationService fill:#2E86C1,stroke:#fff,stroke-width:2px,color:#fff
-            style PostgreSQL fill:#2ECC71,stroke:#fff,stroke-width:2px,color:#fff
-            style Elasticsearch fill:#2ECC71,stroke:#fff,stroke-width:2px,color:#fff
-            style GoogleMaps fill:#DB4437,stroke:#fff,stroke-width:2px,color:#fff
-            style Twilio fill:#F22F46,stroke:#fff,stroke-width:2px,color:#fff
-            style Agora fill:#099DFD,stroke:#fff,stroke-width:2px,color:#fff
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Process Flow: Booking an Appointment -->
-    <section id="booking-flow" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Process Flow: Booking an
-            Appointment</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <p class="mt-4 text-lg text-slate-600 text-center max-w-3xl mx-auto">To illustrate a core user journey, this
-          flowchart details the sequence of events when a user books an appointment, from the initial click to the
-          asynchronous notifications.</p>
-        <div class="mt-12 overflow-x-auto">
-          <div class="mermaid min-w-[800px]">
-            graph TD
-            %% -- CLASS DEFINITIONS FOR A CLEANER LOOK --
-            classDef frontend fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#1565C0
-            classDef backend fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#333
-            classDef decision fill:#E0F7FA,stroke:#006064,stroke-width:2px
-            classDef database fill:#E8F5E9,stroke:#1B5E20,stroke-width:2px,color:#1B5E20
-            classDef event fill:#F3E5F5,stroke:#4A148C,stroke-width:2px,color:#4A148C
-            classDef success fill:#4CAF50,stroke:#2E7D32,color:white,stroke-width:2px
-            classDef error fill:#F44336,stroke:#C62828,color:white,stroke-width:2px
-
-            %% -- NODES & GROUPS --
-            subgraph "User's Browser (Frontend)"
-            A["<i class='fa fa-user-md'></i> Start: User on Doctor's Profile"];
-            B{"<i class='fa fa-mouse-pointer'></i> User clicks 'Book Now'"};
-            C["<i class='fa fa-paper-plane'></i> Send API Request w/ JWT"];
-            ApiResponse{"<i class='fa fa-exchange-alt'></i> API Response Received"};
-            M["<i class='fa fa-check-circle'></i> Display 'Booking Successful!'"];
-            N["<i class='fa fa-times-circle'></i> Display Error Message"];
-            end
-
-            subgraph "AWS Backend"
-            D["<i class='fa fa-network-wired'></i> API Gateway Receives Request"];
-            E{"<i class='fa fa-shield-alt'></i> Auth Middleware: Is JWT Valid?"};
-            F["<i class='fa fa-cogs'></i> Appointment Service Receives Request"];
-            G["<i class='fa fa-search'></i> Query PostgreSQL for availability"];
-            H{"<i class='fa fa-question-circle'></i> Is slot available?"};
-            I[("<i class='fa fa-database'></i> 1. Create 'pending' appointment")];
-            SuccessResponse["<i class='fa fa-thumbs-up'></i> 2. Return '201 Created' Response"];
-            ErrorResponse["<i class='fa fa-exclamation-triangle'></i> Return Error (e.g. 401, 409)"];
-
-            subgraph "Async Events (Decoupled)"
-            J["<i class='fa fa-bullhorn'></i> 3. Publish 'APPOINTMENT_REQUESTED' Event"];
-            NotificationService["<i class='fa fa-bell'></i> Notification Service Listens"];
-            K["<i class='fa fa-comment-dots'></i> Send SMS to Patient via Twilio"];
-            L["<i class='fa fa-broadcast-tower'></i> Push WebSocket to Doctor"];
-            end
-            end
-
-            %% -- CONNECTIONS --
-            A --> B --> C --> D;
-            D --> E;
-            E -- "Yes" --> F;
-            F --> G --> H;
-            H -- "Yes" --> I;
-            I --> SuccessResponse;
-            SuccessResponse --> ApiResponse;
-            ApiResponse -- "Success (201)" --> M;
-
-            E -- "No" --> ErrorResponse;
-            H -- "No" --> ErrorResponse;
-            ErrorResponse --> ApiResponse;
-            ApiResponse -- "Failure" --> N;
-
-            I -.->|"Triggers"| J;
-            J -.-> NotificationService;
-            NotificationService --> K & L;
-
-            %% -- APPLYING STYLES USING CLASS DEFINITIONS --
-            class A,B,C,ApiResponse frontend
-            class D,E,F,G,H,SuccessResponse,ErrorResponse backend
-            class B,E,H,ApiResponse decision
-            class I,G database
-            class J,NotificationService,K,L event
-            class M success
-            class N error
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modules & Requirements -->
-    <section id="modules" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Key Features Explained</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <div class="mt-12">
-          <p class="text-lg text-slate-600 text-center max-w-3xl mx-auto mb-12">The application offers a rich set of
-            features, each addressing a specific healthcare need:</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">💊 Find Medicine</h4>
-              <p class="text-slate-600">Users can search for specific medicines and view their real-time availability in
-                nearby pharmacies. This feature is designed to help users quickly locate and procure necessary
-                medications.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">👨‍⚕️ Find Doctor</h4>
-              <p class="text-slate-600">This module allows users to search for and connect with qualified medical
-                specialists. Users can filter doctors by location, specialty, and even symptoms, and then proceed to
-                book simulated appointments.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">🚑 Emergency Ambulance</h4>
-              <p class="text-slate-600">Provides immediate access to emergency ambulance services. The interface allows
-                for quick emergency calls and also facilitates planned medical transport by searching for available
-                ambulances in specific cities.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">💻 Telemedicine</h4>
-              <p class="text-slate-600">Offers convenient virtual consultations, enabling users to connect with
-                healthcare professionals via video calls or chat from the comfort of their homes.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">🤝 Government Aid Schemes</h4>
-              <p class="text-slate-600">Users can input their demographic and income details to check their eligibility
-                for various government-sponsored healthcare schemes, helping them access financial assistance for
-                medical treatments.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">📄 Prescription Scan</h4>
-              <p class="text-slate-600">This innovative feature allows users to upload an image of their prescription.
-                The application then simulates extracting medicine names from the prescription and helps find nearby
-                pharmacies that stock those medicines.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">❤ NGOs & Charities</h4>
-              <p class="text-slate-600">Users can discover local Non-Governmental Organizations (NGOs) and charities
-                that provide financial support for medical treatments by searching based on state and city.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">📦 Order Tracking</h4>
-              <p class="text-slate-600">For medicines ordered through the platform (after a simulated checkout), users
-                can track the real-time status of their deliveries, from processing to shipment and final delivery.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">🤔 Symptom Checker</h4>
-              <p class="text-slate-600">An AI-powered tool where users can input their symptoms to receive simulated
-                preliminary insights into potential conditions and recommended next steps. This feature is for
-                informational purposes only.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">⏰ Health Reminders</h4>
-              <p class="text-slate-600">Enables users to set personalized reminders for medication schedules,
-                appointments, vaccination due dates, and general health check-ups.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-              <h4 class="text-xl font-bold text-slate-800 mb-2">🗂 Health Records</h4>
-              <p class="text-slate-600">A secure section for users to manage their personal medical history, including
-                uploading and viewing lab reports and prescriptions. Users can also simulate securely sharing their
-                records.</p>
-            </div>
-          </div>
-        </div>
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
-            <h3 class="text-2xl font-semibold mb-4">Software Requirements</h3>
-            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
-              <li><span class="font-semibold">Core Framework:</span> React.js</li>
-              <li><span class="font-semibold">Routing:</span> Wouter</li>
-              <li><span class="font-semibold">Styling:</span> Tailwind CSS with custom themes</li>
-              <li><span class="font-semibold">UI Components:</span> Shadcn/UI (Toaster, Tooltip)</li>
-              <li><span class="font-semibold">Data Fetching:</span> TanStack React Query</li>
-              <li><span class="font-semibold">State Management:</span> React Context (CartProvider)</li>
-              <li><span class="font-semibold">Browser Support:</span> Modern evergreen browsers</li>
-            </ul>
-          </div>
-          <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
-            <h3 class="text-2xl font-semibold mb-4">Hardware Requirements</h3>
-            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
-              <li><span class="font-semibold">User End:</span> Any modern device (PC, smartphone) with an internet
-                connection.</li>
-              <li>No specialized hardware required.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Real-Time Usage -->
-    <section id="real-time-usage" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Real-Time Usage Scenarios</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <div class="mt-12 space-y-8">
-          <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
-            <div class="text-5xl flex-shrink-0">🤔</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-700">A User with Mild Symptoms</h3>
-              <p class="mt-2 text-lg text-slate-600">A user feels unwell but is unsure if they need a doctor. They use
-                the **Symptom Checker**, which suggests it might be a common cold but recommends a Telemedicine call for
-                confirmation. They book a quick video call directly through the app.</p>
-            </div>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
-            <div class="text-5xl flex-shrink-0">👵</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-700">An Elderly Citizen</h3>
-              <p class="mt-2 text-lg text-slate-600">An elderly person wants to know if they are eligible for the
-                Ayushman Bharat scheme. They navigate to the **Government Aid** section, find clear information, and
-                then use the **Health Records** module to gather the required documents.</p>
-            </div>
-          </div>
-          <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
-            <div class="text-5xl flex-shrink-0">🚨</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-700">An Emergency Situation</h3>
-              <p class="mt-2 text-lg text-slate-600">A person witnesses an accident. They use the **Emergency** feature
-                to quickly dispatch an ambulance to their current location, providing critical, time-sensitive
-                assistance while also finding the nearest hospital with an ER.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Timeline -->
-    <section id="timeline" class="section py-20 md:py-28 fade-in-section">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Project Timeline</h2>
-          <div
-            class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
-          </div>
-        </div>
-        <p class="mt-4 text-lg text-slate-600 text-center">This project was executed over a 7-week period, following a
-          structured plan from conception to deployment.</p>
-        <div class="mt-12 bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
-          <table class="w-full border-collapse text-sm md:text-base min-w-[600px]">
-            <thead>
-              <tr class="border-b-2 border-slate-200">
-                <th class="p-2 text-left font-semibold w-1/3">Phase / Task</th>
-                <th class="p-2 text-center font-semibold">Week 1</th>
-                <th class="p-2 text-center font-semibold">Week 2</th>
-                <th class="p-2 text-center font-semibold">Week 3</th>
-                <th class="p-2 text-center font-semibold">Week 4</th>
-                <th class="p-2 text-center font-semibold">Week 5</th>
-                <th class="p-2 text-center font-semibold">Week 6</th>
-                <th class="p-2 text-center font-semibold">Week 7</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">Requirement Analysis & System Design</td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">UI/UX Wireframing & Prototyping</td>
-                <td></td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">Backend & Database Setup</td>
-                <td></td>
-                <td></td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">Frontend - Core Modules</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">Frontend - Feature Integration</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">Unit & Integration Testing</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-                <td></td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-2 pl-6">Final Review & Presentation</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="p-2">
-                  <div class="gantt-bar"></div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-slate-800 text-white">
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <h3 class="text-xl font-semibold text-center">References</h3>
-      <div class="mt-6 text-center text-slate-300 space-y-1">
-        <p>Digital Health India - A Nasscom Report on the Health Tech Landscape.</p>
-        <p>Practo.com & Tata 1mg - For analysis of existing market solutions.</p>
-        <p>React.js, Tailwind CSS, and Chart.js Official Documentation.</p>
-        <p>"The Design of Everyday Things" by Don Norman - For UI/UX principles.</p>
-      </div>
-      <p class="mt-8 text-sm text-slate-400 text-center">&copy; 2025 MediCare Connect Team. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initialize Mermaid
-      mermaid.initialize({
-        startOnLoad: true, theme: 'base', themeVariables: {
-          'primaryColor': '#f3f4f6',
-          'primaryTextColor': '#1e293b',
-          'lineColor': '#64748b',
-          'textColor': '#334155',
-          'fontSize': '14px'
-        }
-      });
-
-      // Smooth scrolling for navigation
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
-
-      // Header shadow on scroll
-      const header = document.getElementById('header');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          header.classList.add('shadow-md');
-        } else {
-          header.classList.remove('shadow-md');
-        }
-      });
-
-      // Fade-in sections on scroll
-      const sections = document.querySelectorAll('.fade-in-section');
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-
-      // Interactive Architecture Diagram
-      const archDetails = {
-        client: '<strong>Tech:</strong> React.js, Wouter, Tailwind CSS, TanStack Query<br><strong>Responsibility:</strong> Renders the UI, manages client-side state, and makes API calls to the backend.',
-        server: '<strong>Tech:</strong> Node.js, Express.js, JWT for Auth<br><strong>Responsibility:</strong> Handles business logic, authenticates users, processes data, and communicates with the database.',
-        db: '<strong>Tech:</strong> PostgreSQL, Redis (for caching)<br><strong>Responsibility:</strong> Persistently stores all application data, including user profiles, appointments, and health records.'
-      };
-      const archClient = document.getElementById('arch-client');
-      const archServer = document.getElementById('arch-server');
-      const archDb = document.getElementById('arch-db');
-      const archDetailsBox = document.getElementById('arch-details');
-      const archDiagram = document.getElementById('architecture-diagram');
-
-      archClient.addEventListener('mouseenter', () => archDetailsBox.innerHTML = archDetails.client);
-      archServer.addEventListener('mouseenter', () => archDetailsBox.innerHTML = archDetails.server);
-      archDb.addEventListener('mouseenter', () => archDetailsBox.innerHTML = archDetails.db);
-      archDiagram.addEventListener('mouseleave', () => archDetailsBox.innerHTML = 'Hover over a component to see details.');
-
-
-      // Chart.js Implementations
-      // 1. Literature Review: Feature Comparison Chart
-      const featureCtx = document.getElementById('featureChart').getContext('2d');
-      new Chart(featureCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Appointments', 'Medicines', 'Symptom Checker', 'Telemedicine', 'Integrated Dashboard'],
-          datasets: [
-            {
-              label: 'Practo',
-              data: [1, 0, 0, 1, 0],
-              backgroundColor: 'rgba(54, 162, 235, 0.6)',
-              borderColor: 'rgba(54, 162, 235, 1)',
-              borderWidth: 1
-            },
-            {
-              label: '1mg',
-              data: [1, 1, 0, 1, 0],
-              backgroundColor: 'rgba(255, 159, 64, 0.6)',
-              borderColor: 'rgba(255, 159, 64, 1)',
-              borderWidth: 1
-            },
-            {
-              label: 'MediCare Connect',
-              data: [1, 1, 1, 1, 1],
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 2
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value) {
-                  if (value === 1) return 'Yes';
-                  if (value === 0) return 'No';
-                  return null;
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Mermaid
+            mermaid.initialize({
+                startOnLoad: true, theme: 'base', themeVariables: {
+                    'primaryColor': '#f3f4f6',
+                    'primaryTextColor': '#1e293b',
+                    'lineColor': '#64748b',
+                    'textColor': '#334155',
+                    'fontSize': '14px'
                 }
-              }
-            }
-          },
-          plugins: {
-            title: {
-              display: true,
-              text: 'Feature Comparison of Healthcare Platforms'
-            },
-            legend: {
-              position: 'bottom',
-            }
-          }
-        }
-      });
+            });
 
-      // 2. Proposed Work: Doughnut Chart
-      const proposedWorkCtx = document.getElementById('proposedWorkChart').getContext('2d');
-      new Chart(proposedWorkCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Core Services (Doctors, Meds)', 'Health Tools (Symptoms, Telemed)', 'Data Mgmt (Records, Aid)'],
-          datasets: [{
-            label: 'Work Distribution',
-            data: [40, 35, 25],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.8)',
-              'rgba(75, 192, 192, 0.8)',
-              'rgba(255, 206, 86, 0.8)'
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(255, 206, 86, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  let label = context.label || '';
-                  if (label) {
-                    label += ': ';
-                  }
-                  if (context.parsed !== null) {
-                    label += context.parsed + '%';
-                  }
-                  return label;
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Header shadow on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                } else {
+                    header.classList.remove('shadow-md');
                 }
-              }
-            }
-          }
-        }
-      });
-    });
-  </script>
+            });
+
+            // Fade-in sections on scroll
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Interactive Architecture Diagram
+            const archDetails = {
+                client: '<strong>Tech:</strong> React.js, Wouter, Tailwind CSS, TanStack Query<br><strong>Responsibility:</strong> Renders the UI, manages client-side state, and makes API calls to the backend.',
+                server: '<strong>Tech:</strong> Node.js, Express.js, JWT for Auth<br><strong>Responsibility:</strong> Handles business logic, authenticates users, processes data, and communicates with the database.',
+                db: '<strong>Tech:</strong> PostgreSQL, Redis (for caching)<br><strong>Responsibility:</strong> Persistently stores all application data, including user profiles, appointments, and health records.'
+            };
+            const archClient = document.getElementById('arch-client');
+            const archServer = document.getElementById('arch-server');
+            const archDb = document.getElementById('arch-db');
+            const archDetailsBox = document.getElementById('arch-details');
+            const archDiagram = document.getElementById('architecture-diagram');
+
+            archClient.addEventListener('mouseenter', () => archDetailsBox.innerHTML = archDetails.client);
+            archServer.addEventListener('mouseenter', () => archDetailsBox.innerHTML = archDetails.server);
+            archDb.addEventListener('mouseenter', () => archDetailsBox.innerHTML = archDetails.db);
+            archDiagram.addEventListener('mouseleave', () => archDetailsBox.innerHTML = 'Hover over a component to see details.');
+
+
+            // Chart.js Implementations
+            // 1. Literature Review: Feature Comparison Chart
+            const featureCtx = document.getElementById('featureChart').getContext('2d');
+            new Chart(featureCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Appointments', 'Medicines', 'Symptom Checker', 'Telemedicine', 'Integrated Dashboard'],
+                    datasets: [
+                        {
+                            label: 'Practo',
+                            data: [1, 0, 0, 1, 0],
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: '1mg',
+                            data: [1, 1, 0, 1, 0],
+                            backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'MediCare Connect',
+                            data: [1, 1, 1, 1, 1],
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function (value) {
+                                    if (value === 1) return 'Yes';
+                                    if (value === 0) return 'No';
+                                    return null;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Feature Comparison of Healthcare Platforms'
+                        },
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+
+            // 2. Proposed Work: Doughnut Chart
+            const proposedWorkCtx = document.getElementById('proposedWorkChart').getContext('2d');
+            new Chart(proposedWorkCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Core Services (Doctors, Meds)', 'Health Tools (Symptoms, Telemed)', 'Data Mgmt (Records, Aid)'],
+                    datasets: [{
+                        label: 'Work Distribution',
+                        data: [40, 35, 25],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(255, 206, 86, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
