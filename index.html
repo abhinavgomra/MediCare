@@ -7,7 +7,6 @@
     <title>MediCare Connect: Project Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- UPDATED: Using a newer, more compatible version of Mermaid.js -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,12 +58,10 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.7);
         }
-
-        .gantt-bar {
-            background-color: #3b82f6;
-            /* blue-500 */
-            border-radius: 4px;
-            height: 20px;
+        
+        /* Added for the new timeline */
+        .gradient-bg {
+            background-image: linear-gradient(135deg, #3b82f6, #10b981);
         }
 
         .fade-in-section {
@@ -100,7 +97,6 @@
 
 <body class="antialiased">
 
-    <!-- Header & Navigation -->
     <header id="header" class="glassmorphism fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -135,7 +131,6 @@
     </header>
 
     <main>
-        <!-- Title Section -->
         <section class="pt-32 pb-20 bg-slate-100">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight">
@@ -147,7 +142,6 @@
             </div>
         </section>
 
-        <!-- The Team -->
         <section id="team" class="section py-20 md:py-28 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -204,7 +198,6 @@
             </div>
         </section>
 
-        <!-- Introduction & Problem Statement -->
         <section id="intro" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
                 <div>
@@ -266,7 +259,6 @@
             </div>
         </section>
 
-        <!-- Proposed Work -->
         <section id="proposed-work" class="section py-20 md:py-28 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -288,22 +280,22 @@
                         <ul class="mt-6 space-y-4 text-lg">
                             <li class="flex items-start"><span
                                     class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                                        class="fas fa-pills"></i></span><span>Medicines & Doctors: Core modules for
+                                        class="fas fa-pills"></i></span><span><b>Medicines & Doctors:</b> Core modules for
                                     finding specialists
                                     and pharmacies.</span></li>
                             <li class="flex items-start"><span
                                     class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                                        class="fas fa-first-aid"></i></span><span>Emergency Services: A dedicated,
+                                        class="fas fa-first-aid"></i></span><span><b>Emergency Services:</b> A dedicated,
                                     high-priority module
                                     for booking emergency transport.</span></li>
                             <li class="flex items-start"><span
                                     class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                                        class="fas fa-diagnoses"></i></span><span>Health Tools: Includes a Symptom
+                                        class="fas fa-diagnoses"></i></span><span><b>Health Tools:</b> Includes a Symptom
                                     Checker, Telemedicine
                                     consultations, and Lab Test booking.</span></li>
                             <li class="flex items-start"><span
                                     class="font-bold text-blue-600 w-6 h-6 text-center mr-3"><i
-                                        class="fas fa-landmark"></i></span><span>Information Hub: Provides access to
+                                        class="fas fa-landmark"></i></span><span><b>Information Hub:</b> Provides access to
                                     Government Aid
                                     schemes and personal Health Records.</span></li>
                         </ul>
@@ -318,7 +310,6 @@
             </div>
         </section>
 
-        <!-- System Design -->
         <section id="design" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -328,7 +319,6 @@
                     </div>
                 </div>
                 <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <!-- Literature Review -->
                     <div>
                         <h3 class="text-2xl font-semibold text-center mb-6">Competitive Analysis</h3>
                         <p class="text-lg text-slate-700 mb-6">We analyzed existing platforms like Practo and 1mg. While
@@ -341,7 +331,6 @@
                             <canvas id="featureChart"></canvas>
                         </div>
                     </div>
-                    <!-- System Architecture -->
                     <div>
                         <h3 class="text-2xl font-semibold text-center mb-6">Interactive System Architecture</h3>
                         <p class="text-lg text-slate-700 mb-6">Our project follows a modern Client-Server Architecture.
@@ -377,7 +366,6 @@
             </div>
         </section>
 
-        <!-- Project Architecture Diagram -->
         <section id="architecture" class="section py-20 md:py-28 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -474,7 +462,6 @@
             </div>
         </section>
 
-        <!-- Process Flow: Booking an Appointment -->
         <section id="booking-flow" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -561,11 +548,10 @@
             </div>
         </section>
 
-        <!-- Modules & Requirements -->
         <section id="modules" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Modules & Requirements
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Modules
                     </h2>
                     <div
                         class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
@@ -588,7 +574,7 @@
                         </div>
                         <div
                             class="bg-white p-6 rounded-xl shadow-lg border hover:-translate-y-1.5 transition-all duration-300">
-                            <h4 class="text-xl font-bold text-slate-800 mb-2">👨‍⚕️ Find Doctor</h4>
+                            <h4 class="text-xl font-bold text-slate-800 mb-2">👨‍⚕ Find Doctor</h4>
                             <p class="text-slate-600">This module allows users to search for and connect with qualified
                                 medical
                                 specialists. Users can filter doctors by location, specialty, and even symptoms, and
@@ -673,7 +659,12 @@
                     </div>
                 </div>
                 <div class="mt-16">
-                    <h3 class="text-2xl font-semibold text-center mb-8">Requirements</h3>
+                    <div class="relative text-center mb-16">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 inline-block">Requirements</h2>
+    <div
+        class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
+    </div>
+</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
                             <h3 class="text-2xl font-semibold mb-4">Software Requirements</h3>
@@ -702,7 +693,6 @@
             </div>
         </section>
 
-        <!-- Real-Time Usage -->
         <section id="real-time-usage" class="section py-20 md:py-28 bg-slate-100 fade-in-section">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -719,7 +709,7 @@
                             <h3 class="text-xl font-bold text-blue-700">A User with Mild Symptoms</h3>
                             <p class="mt-2 text-lg text-slate-600">A user feels unwell but is unsure if they need a
                                 doctor. They use
-                                the **Symptom Checker**, which suggests it might be a common cold but recommends a
+                                the Symptom Checker, which suggests it might be a common cold but recommends a
                                 Telemedicine call for
                                 confirmation. They book a quick video call directly through the app.</p>
                         </div>
@@ -730,9 +720,9 @@
                             <h3 class="text-xl font-bold text-blue-700">An Elderly Citizen</h3>
                             <p class="mt-2 text-lg text-slate-600">An elderly person wants to know if they are eligible
                                 for the
-                                Ayushman Bharat scheme. They navigate to the **Government Aid** section, find clear
+                                Ayushman Bharat scheme. They navigate to the Government Aid section, find clear
                                 information, and
-                                then use the **Health Records** module to gather the required documents.</p>
+                                then use the Health Records module to gather the required documents.</p>
                         </div>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex items-center gap-6">
@@ -740,7 +730,7 @@
                         <div>
                             <h3 class="text-xl font-bold text-blue-700">An Emergency Situation</h3>
                             <p class="mt-2 text-lg text-slate-600">A person witnesses an accident. They use the
-                                **Emergency** feature
+                                Emergency feature
                                 to quickly dispatch an ambulance to their current location, providing critical,
                                 time-sensitive
                                 assistance while also finding the nearest hospital with an ER.</p>
@@ -750,7 +740,6 @@
             </div>
         </section>
 
-        <!-- Timeline -->
         <section id="timeline" class="section py-20 md:py-28 fade-in-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="relative text-center mb-16">
@@ -759,117 +748,67 @@
                         class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full">
                     </div>
                 </div>
-                <p class="mt-4 text-lg text-slate-600 text-center">This project was executed over a 7-week period,
-                    following a
-                    structured plan from conception to deployment.</p>
-                <div class="mt-12 bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
-                    <table class="w-full border-collapse text-sm md:text-base min-w-[600px]">
-                        <thead>
-                            <tr class="border-b-2 border-slate-200">
-                                <th class="p-2 text-left font-semibold w-1/3">Phase / Task</th>
-                                <th class="p-2 text-center font-semibold">Week 1</th>
-                                <th class="p-2 text-center font-semibold">Week 2</th>
-                                <th class="p-2 text-center font-semibold">Week 3</th>
-                                <th class="p-2 text-center font-semibold">Week 4</th>
-                                <th class="p-2 text-center font-semibold">Week 5</th>
-                                <th class="p-2 text-center font-semibold">Week 6</th>
-                                <th class="p-2 text-center font-semibold">Week 7</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">Requirement Analysis & System Design</td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">UI/UX Wireframing & Prototyping</td>
-                                <td></td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">Backend & Database Setup</td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">Frontend - Core Modules</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">Frontend - Feature Integration</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">Unit & Integration Testing</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-2 pl-6">Final Review & Presentation</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    <div class="gantt-bar"></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                 <p class="mt-2 text-lg text-center text-slate-500">A summary of our development journey.</p>
+                <div class="relative mt-12">
+                    <div class="absolute w-0.5 h-full bg-blue-200 left-1/2 -translate-x-1/2"></div>
+                    <div class="space-y-8">
+                        <div class="relative flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="p-4 bg-white rounded-lg shadow-md border">
+                                    <h3 class="font-bold">Requirement Analysis</h3>
+                                    <p>Gathering requirements and defining scope.</p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold absolute left-1/2 -translate-x-1/2">1</div>
+                            <div class="w-1/2 pl-8"><p class="font-semibold">Week 1-2</p></div>
+                        </div>
+                        <div class="relative flex items-center">
+                            <div class="w-1/2 pr-8 text-right"><p class="font-semibold">Week 3-5</p></div>
+                            <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold absolute left-1/2 -translate-x-1/2">2</div>
+                            <div class="w-1/2 pl-8">
+                                <div class="p-4 bg-white rounded-lg shadow-md border">
+                                    <h3 class="font-bold">Design & Prototyping</h3>
+                                    <p>Creating wireframes, mockups, and UI/UX design.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="p-4 bg-white rounded-lg shadow-md border">
+                                    <h3 class="font-bold">Development (Backend)</h3>
+                                    <p>Setting up the database and building APIs.</p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold absolute left-1/2 -translate-x-1/2">3</div>
+                            <div class="w-1/2 pl-8"><p class="font-semibold">Week 6-9</p></div>
+                        </div>
+                        <div class="relative flex items-center">
+                            <div class="w-1/2 pr-8 text-right"><p class="font-semibold">Week 10-12</p></div>
+                            <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold absolute left-1/2 -translate-x-1/2">4</div>
+                            <div class="w-1/2 pl-8">
+                                <div class="p-4 bg-white rounded-lg shadow-md border">
+                                    <h3 class="font-bold">Development (Frontend)</h3>
+                                    <p>Building the user interface and connecting to APIs.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="relative flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="p-4 bg-white rounded-lg shadow-md border">
+                                    <h3 class="font-bold">Testing & QA</h3>
+                                    <p>Integration testing, bug fixing, and quality assurance.</p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold absolute left-1/2 -translate-x-1/2">5</div>
+                            <div class="w-1/2 pl-8"><p class="font-semibold">Week 13-14</p></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-800 text-white">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <h3 class="text-xl font-semibold text-center">References</h3>
